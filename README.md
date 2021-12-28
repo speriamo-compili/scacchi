@@ -1,4 +1,4 @@
 # Scacchi
 
-progetto di laboratorio di programmazione
+Progetto di laboratorio di programmazione
 
