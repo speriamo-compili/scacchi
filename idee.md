@@ -82,3 +82,7 @@ Le celle saranno generate nel seguente modo:
 L'umano da la mossa da tastiera, nel formato \<casella iniziale\> \<casella finale\>, ad esempio: `B1 C3`.
 
 Bisogna contrallare che tale mossa sia corretta.
+
+# Domande
+- nelle classi dei vari pezzi (es. `King`) al posto del metodo `print_piece()`, è meglio definire l'operatore `<<`?
+- questione `move`

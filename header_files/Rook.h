@@ -3,11 +3,14 @@
 #include "Piece.h"
 
 class Rook : public Piece {
-    Rook(colour c);
-    ~Rook() {};
+    public:
+        const char ROOK_LETTER = 'T';
+                
+        Rook(colour& c);
+        ~Rook() {};
 
-    bool isValidMove(Cell& start_cell, Cell& end_cell) const override;
-    char print_piece() const override;
+        bool isValidMove(Cell& start_cell, Cell& end_cell) const override;
+        char print_piece() const override;
 };
 
 #endif

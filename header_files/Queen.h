@@ -3,11 +3,14 @@
 #include "Piece.h"
 
 class Queen : public Piece {
-    Queen(colour c);
-    ~Queen() {};
+    public:
+        const char QUEEN_LETTER = 'D';
+        
+        Queen(colour& c);
+        ~Queen() {};
 
-    bool isValidMove(Cell& start_cell, Cell& end_cell) const override;
-    char print_piece() const override;
+        bool isValidMove(Cell& start_cell, Cell& end_cell) const override;
+        char print_piece() const override;
 };
 
 #endif
