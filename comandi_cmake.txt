@@ -1,4 +1,4 @@
 DENTRO LA DIRECTORY build
-per inizializzare la directory: cmake -G"MinGW Makefiles" .
+per inizializzare la directory: cmake -G"MinGW Makefiles" ..
 per compilare: mingw32-make
 per eseguire: ./main.exe
