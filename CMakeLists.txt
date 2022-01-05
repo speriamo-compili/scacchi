@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.2)
 
 project(Chess)
 
-include_directories(${CMAKE_SOURCE_DIR}/header_files)
-
 add_library(Cell
     header_files/Cell.h
     cpp_files/Cell.cpp
@@ -44,13 +42,23 @@ add_library(Rook
     cpp_files/Rook.cpp
 )
 
+add_library(Chessboard
+    header_files/Chessboard.h
+    cpp_files/Chessboard.cpp
+)
+
 add_executable(main
     main.cpp
 )
 
 target_link_libraries(main
+    Chessboard
     Cell
-    Piece
     King
+    Knight
+    Pawn
+    Queen
+    Rook
     Bishop
+    Piece
 )

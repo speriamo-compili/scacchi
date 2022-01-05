@@ -6,11 +6,11 @@ class King : public Piece {
     public:
         const char KING_LETTER = 'R';
 
-        King(colour& c);
+        King(colour c);
         ~King() {};
 
         bool isValidMove(Cell& start_cell, Cell& end_cell) const override;
-        char print_piece() const override;
+        ostream& print_piece(ostream& of) const override;
 };
 
 #endif
