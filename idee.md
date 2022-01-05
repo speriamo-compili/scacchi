@@ -12,6 +12,10 @@ Partite di due tipi:
 - giocatore vs computer
 - computer vs computer
 
+# Regole
+
+
+
 # Classi
 
 ## `Piece` (classe astratta)
@@ -32,7 +36,6 @@ Classi derivate di Piece:
 
 ## `Cell`
 
-
 ## `Chessboard`
 Conterrà una matrice 8x8 di puntatori a `Piece`.
 
@@ -44,7 +47,6 @@ Contiene i controlli:
 Contiene i seguenti metodi:
 - `void move (Cell& start_cell, Cell& end_cell);`
 - `void print_board() const;`
-
 
 ## `Game` (classe astratta)
 Partite di due tipi:
@@ -63,9 +65,6 @@ Per ogni tipo di partita c'è una classe:
 ### 1. `PvsC`
 
 ### 2. `CvsC`
-
-
-
 
 ## `Computer`
 Genera delle mosse già corrette.
@@ -86,3 +85,9 @@ Bisogna contrallare che tale mossa sia corretta.
 # Domande
 - nelle classi dei vari pezzi (es. `King`) al posto del metodo `print_piece()`, è meglio definire l'operatore `<<`?
 - questione `move`
+
+# TO - DO
+
+## Alla fine
+- controllare che ci sia `const` dove deve andare 
+- controllare che i parametri siano passati per reference (dove deve andare)
