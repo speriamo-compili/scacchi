@@ -6,7 +6,7 @@ class Queen : public Piece {
     public:
         const char QUEEN_LETTER = 'D';
         
-        Queen(colour c);
+        Queen(Colour c);
         ~Queen() {};
 
         bool isValidMove(Cell& start_cell, Cell& end_cell) const override;

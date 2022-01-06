@@ -13,7 +13,8 @@ class Chessboard {
         ~Chessboard();
 
         void move(Cell& start_cell, Cell& end_cell);
-        void print_board() const;
+
+        friend ostream& operator<<(ostream& os, const Chessboard& board);
 };
 
 #endif

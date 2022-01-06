@@ -1,6 +1,6 @@
 #include "..\header_files\King.h"
 
-King::King(colour c) : Piece(c) {};
+King::King(Colour c) : Piece(c) {};
 
 bool King::isValidMove(Cell& start_cell, Cell& end_cell) const {
    int delta_row = start_cell.getRow() - end_cell.getRow();
@@ -13,7 +13,7 @@ bool King::isValidMove(Cell& start_cell, Cell& end_cell) const {
 }
 
 ostream& King::print_piece(ostream& of) const {
-   char c = getPieceColour() == white ? tolower(KING_LETTER) : toupper(KING_LETTER);
+   char c = getPieceColour() == Colour::white ? tolower(KING_LETTER) : toupper(KING_LETTER);
    of << c; 
    return of;
 }

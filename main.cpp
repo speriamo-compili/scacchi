@@ -13,7 +13,7 @@ int main() {
     //         string s = string(1, 'a'+i) + string(1, '1'+j); 
     //         Cell c{s};
     //         vector<Cell> v;
-    //         King k{Piece::colour::white};
+    //         King k{Colour::white};
     //         for(int r = 0; r < 8; r++) {
     //             for (int m = 0; m < 8; m++) {
     //                 string t = string(1, 'a'+r) + string(1, '1'+m);
@@ -30,7 +30,7 @@ int main() {
     //     ;
     // }
     Chessboard b{};
-    b.print_board();
-    // Piece *p = new Bishop{Piece::colour::white};
+    cout << b;
+    // Piece *p = new Bishop{Colour::white};
     // cout << *p << "\n";
 }

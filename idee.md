@@ -146,10 +146,11 @@ Bisogna contrallare che tale mossa sia corretta.
 
 # TO - DO
 - controllare reference sui costruttori
-- questione colour (enum?)
+- questione Colour (enum?) - DONE
 - controlla directory progetto c++
-- finire metodo `print_table` passare `ostream` e inserire indici
+- finire metodo `print_table` passare `ostream` e inserire indici - DONE
 - leggere docs cmake
+- introdurre COSTANTI?
 
 
 ## Alla fine

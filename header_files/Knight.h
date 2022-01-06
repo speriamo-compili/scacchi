@@ -6,7 +6,7 @@ class Knight : public Piece {
     public:
         const char KNIGHT_LETTER = 'C';
 
-        Knight(colour c);
+        Knight(Colour c);
         ~Knight() {};
 
         bool isValidMove(Cell& start_cell, Cell& end_cell) const override;

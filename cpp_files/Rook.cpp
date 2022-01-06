@@ -1,6 +1,6 @@
 #include "..\header_files\Rook.h"
 
-Rook::Rook(colour c) : Piece(c) {};
+Rook::Rook(Colour c) : Piece(c) {};
 
 bool Rook::isValidMove(Cell& start_cell, Cell& end_cell) const {
    int delta_row = start_cell.getRow() - end_cell.getRow();
@@ -13,7 +13,7 @@ bool Rook::isValidMove(Cell& start_cell, Cell& end_cell) const {
 }
 
 ostream& Rook::print_piece(ostream& of) const {
-   char c = getPieceColour() == white ? tolower(ROOK_LETTER) : toupper(ROOK_LETTER);
+   char c = getPieceColour() == Colour::white ? tolower(ROOK_LETTER) : toupper(ROOK_LETTER);
    of << c; 
    return of;
 }

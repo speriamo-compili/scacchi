@@ -3,19 +3,19 @@
 #include "Cell.h"
 #include <fstream>
 
+enum class Colour {white, black};
+
 class Piece {
     public:
-        enum colour {white, black};
-        
-        Piece(colour c);
+        Piece(Colour c);
         virtual ~Piece() {};
 
         virtual bool isValidMove(Cell& start_cell, Cell& end_cell) const = 0;
         virtual ostream& print_piece(ostream& of) const = 0;
 
-        colour getPieceColour() const;
+        Colour getPieceColour() const;
     private:
-        colour pieceColour;
+        Colour pieceColour;
 };
 
 ostream& operator<<(ostream& of, const Piece& p);

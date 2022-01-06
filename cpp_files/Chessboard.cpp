@@ -14,34 +14,34 @@ Chessboard::Chessboard() {
         }
     }
 
-    board[0][0] = new Rook(Piece::colour::black);
-    board[0][1] = new Knight(Piece::colour::black);
-    board[0][2] = new Bishop(Piece::colour::black);
-    board[0][3] = new Queen(Piece::colour::black);
-    board[0][4] = new King(Piece::colour::black);
-    board[0][5] = new Bishop(Piece::colour::black);
-    board[0][6] = new Knight(Piece::colour::black);
-    board[0][7] = new Rook(Piece::colour::black);
+    board[0][0] = new Rook(Colour::white);
+    board[0][1] = new Knight(Colour::white);
+    board[0][2] = new Bishop(Colour::white);
+    board[0][3] = new Queen(Colour::white);
+    board[0][4] = new King(Colour::white);
+    board[0][5] = new Bishop(Colour::white);
+    board[0][6] = new Knight(Colour::white);
+    board[0][7] = new Rook(Colour::white);
     for (unsigned int c = 0; c < 8; c++) {
-        board[1][c] = new Pawn(Piece::colour::black);
+        board[1][c] = new Pawn(Colour::white);
     }
 
-    board[7][0] = new Rook(Piece::colour::white);
-    board[7][1] = new Knight(Piece::colour::white);
-    board[7][2] = new Bishop(Piece::colour::white);
-    board[7][3] = new Queen(Piece::colour::white);
-    board[7][4] = new King(Piece::colour::white);
-    board[7][5] = new Bishop(Piece::colour::white);
-    board[7][6] = new Knight(Piece::colour::white);
-    board[7][7] = new Rook(Piece::colour::white);
+    board[7][0] = new Rook(Colour::black);
+    board[7][1] = new Knight(Colour::black);
+    board[7][2] = new Bishop(Colour::black);
+    board[7][3] = new Queen(Colour::black);
+    board[7][4] = new King(Colour::black);
+    board[7][5] = new Bishop(Colour::black);
+    board[7][6] = new Knight(Colour::black);
+    board[7][7] = new Rook(Colour::black);
     for (unsigned int c = 0; c < 8; c++) {
-        board[6][c] = new Pawn(Piece::colour::white);
+        board[6][c] = new Pawn(Colour::black);
     }
 }
 
 Chessboard::~Chessboard() {
-    for (int r = 0; r < 8; r++) {
-        for (int c = 0; c < 8; c++) {
+    for (unsigned int r = 0; r < 8; r++) {
+        for (unsigned int c = 0; c < 8; c++) {
             delete board[r][c];
             board[r][c] = nullptr;
         }
@@ -58,14 +58,20 @@ void Chessboard::move(Cell& start_cell, Cell& end_cell) {
     }
 }
 
-void Chessboard::print_board() const {
-    for (int r = 0; r < 8; r++) {
-        for (int c = 0; c < 8; c++) {
-            if (board[r][c])
-                cout << *board[r][c];
+ostream& operator<<(ostream& os, const Chessboard& b) {
+    for (int r = 7; r >= 0; r--) {
+        os << r + 1 << " ";
+        for (unsigned int c = 0; c < 8; c++) {
+            if (b.board[r][c])
+                os << *b.board[r][c];
             else    
-                cout << " ";
+                os << " ";
         }
-        cout << "\n";
+        os << endl;
     }
+    os << endl << "  ";
+    for (unsigned int i = 0; i < 8; i++) {
+        os << char('A' + i);
+    }
+    return os;
 }
