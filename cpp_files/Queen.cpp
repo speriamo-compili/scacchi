@@ -2,7 +2,7 @@
 
 Queen::Queen(Colour c) : Piece(c) {};
 
-bool Queen::isValidMove(Cell& start_cell, Cell& end_cell) const {
+bool Queen::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
    // TO DO
    return true;
 }

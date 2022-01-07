@@ -77,7 +77,7 @@ Sono 5 i casi in cui una partita di scacchi può finire in parità:
 ## `Piece` (classe astratta)
 contiene la funzione astratta:
 
-`virtual bool isValidMove(Cell& start_cell, Cell& end_cell) = 0;`
+`virtual bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) = 0;`
 
 `virtual char print_piece() = 0;`
 
@@ -156,3 +156,90 @@ Bisogna contrallare che tale mossa sia corretta.
 ## Alla fine
 - controllare che ci sia `const` dove deve andare 
 - controllare che i parametri siano passati per reference (dove deve andare)
+
+# `isValidMove()` vs `getValidMoves()`
+
+## `isValidMove()`
+### mossa singola 
+migliore 
+
+### scacco
+per ogni pezzo avversario controllo se può attaccare il Re.
+
+Chiamo ogni volta il metodo `isValidMove()` con `start_cell` quella di un pezzo avversario e `end_cell` quella del Re.
+
+**complessità**: `O(numero pezzi avversari)`
+
+Viene chiamata ad ogni mossa, se la mossa mette sotto scacco il proprio Re la mossa è illegale.
+
+### scacco matto
+simulo ogni mossa che un pezzo può fare e controllo se c'è ancora lo scacco.
+Se si, è scacco matto, se c'è una sola mossa che elimina lo scacco allora non è matto.
+
+Per ogni pezzo, chiamo `isValidMove()` con `start_cell` quella del pezzo e `end_cell` ogni cella della scacchiera. Se la mossa è valida, la faccio e controllo se il re è ancora sotto scacco.
+
+**complessità**: `O(numero pezzi avversari * 8 * 8 * numero pezzi avversari)`
+
+### stallo
+Per ogni pezzo, controllo se può fare una mossa legale.
+
+Per ogni pezzo, chiamo `isValidMove()` con `start_cell` quella del pezzo e `end_cell` ogni cella della scacchiera. Se c'è una sola mossa valida allora non si è in stallo.
+
+**complessità**: `O(numero pezzi * 8 * 8)`
+
+### computer
+Per trovare le celle in cui un pezzo può muoversi chiamo `isValidMove()` con `start_cell` quella del pezzo e `end_cell` ogni cella della scacchiera.
+
+**complessità**: `O(numeri pezzi * 8 * 8)`
+
+## `getValidMoves()`
+### mossa singola 
+mi faccio dare tutte le mosse che può fare il pezzo che voglio muovere.
+Controllo se la cella in cui voglio muovere è in quelle in cui il pezzo può andare.
+Peggiore.
+
+### scacco
+per ogni pezzo avversario controllo se può attaccare il Re.
+
+Per ogni pezzo mi faccio dare le celle in cui può muovere e controllo se in queste c'è quella del Re.
+
+**complessità**: `O(numero pezzi avversari * numero celle in cui il pezzo può andare)`
+
+Viene chiamata ad ogni mossa, se la mossa mette sotto scacco il proprio Re la mossa è illegale.
+
+### scacco matto
+peggiore
+
+**complessità**: `O(?)`
+
+### stallo
+Per ogni pezzo, controllo se può fare una mossa legale.
+
+**complessità**: `O(numero pezzi )`
+
+### computer
+Per trovare le celle in cui un pezzo può muoversi chiamo `isValidMove()` con `start_cell` quella del pezzo e `end_cell` ogni cella della scacchiera.
+
+**complessità**: `O(numeri pezzi * 8 * 8)`
+
+# Ciclo di gioco
+    do {
+        GetNextMove(mqGameBoard.MainGameBoard);
+        AlternateTurn();
+    } while (!IsGameOver());
+    
+In `IsGameOver()` chiama il metodo `canMove(colour c)`. Se non può muovere allora, se è in scacco è scacco matto altrimenti è patta.
+
+`canMove(colour c)` ha complessità `O(numero pezzi avversari * 8 * 8 * numero pezzi avversari)`
+
+
+# Considerazioni
+
+ad ogni mossa del colore c bisogna controllare:
+prima della mossa:
+- se la casella iniziale ha un pezzo del colore c
+- se la casella finale è vuota o ha un pezzo del colore opposto
+- se quel pezzo può fare la mossa
+dopo la mossa:
+- che il re di colore c non sia in scacco -> `isInCheck()`
+- se c'è uno stallo, se si -> patta -> `isStalemate()`

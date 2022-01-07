@@ -1,5 +1,6 @@
 #ifndef PIECE_H
 #define PIECE_H
+#include "Chessboard.h"
 #include "Cell.h"
 #include <fstream>
 
@@ -10,7 +11,7 @@ class Piece {
         Piece(Colour c);
         virtual ~Piece() {};
 
-        virtual bool isValidMove(Cell& start_cell, Cell& end_cell) const = 0;
+        virtual bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const = 0;
         virtual ostream& print_piece(ostream& of) const = 0;
 
         Colour getPieceColour() const;

@@ -2,7 +2,7 @@
 
 Pawn::Pawn(Colour c) : Piece(c) {};
 
-bool Pawn::isValidMove(Cell& start_cell, Cell& end_cell) const {
+bool Pawn::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
    // TO DO
    return true;
 }

@@ -1,7 +1,8 @@
 #ifndef CHESSBOARD_H
 #define CHESSBOARD_H
 #include "Cell.h"
-#include "Piece.h"
+
+class Piece;
 
 class Chessboard {
     private:
@@ -13,8 +14,11 @@ class Chessboard {
         ~Chessboard();
 
         void move(Cell& start_cell, Cell& end_cell);
+        Piece* getPiece(const Cell& c) const;
 
-        friend ostream& operator<<(ostream& os, const Chessboard& board);
+        // TO BE DELETED
+        void setPiece(Piece* p, const Cell& cell);
 };
 
+ostream& operator<<(ostream& os, const Chessboard& board);
 #endif

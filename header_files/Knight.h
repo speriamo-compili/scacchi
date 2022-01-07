@@ -9,7 +9,7 @@ class Knight : public Piece {
         Knight(Colour c);
         ~Knight() {};
 
-        bool isValidMove(Cell& start_cell, Cell& end_cell) const override;
+        bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
         ostream& print_piece(ostream& of) const override;
 };
 

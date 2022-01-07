@@ -2,7 +2,7 @@
 
 King::King(Colour c) : Piece(c) {};
 
-bool King::isValidMove(Cell& start_cell, Cell& end_cell) const {
+bool King::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
    int delta_row = start_cell.getRow() - end_cell.getRow();
    int delta_col = start_cell.getCol() - end_cell.getCol();
 

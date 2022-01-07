@@ -9,7 +9,7 @@ class Rook : public Piece {
         Rook(Colour c);
         ~Rook() {};
 
-        bool isValidMove(Cell& start_cell, Cell& end_cell) const override;
+        bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
         ostream& print_piece(ostream& of) const override;
 };
 
