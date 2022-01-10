@@ -224,8 +224,10 @@ Per trovare le celle in cui un pezzo può muoversi chiamo `isValidMove()` con `s
 
 # Ciclo di gioco
     do {
-        GetNextMove(mqGameBoard.MainGameBoard);
-        AlternateTurn();
+        getNextMove();
+        move();
+        alternateTurn();
+        isInCheck();
     } while (!IsGameOver());
     
 In `IsGameOver()` chiama il metodo `canMove(colour c)`. Se non può muovere allora, se è in scacco è scacco matto altrimenti è patta.
@@ -235,11 +237,19 @@ In `IsGameOver()` chiama il metodo `canMove(colour c)`. Se non può muovere allo
 
 # Considerazioni
 
-ad ogni mossa del colore c bisogna controllare:
+Ad ogni mossa del colore c bisogna controllare:
 prima della mossa:
 - se la casella iniziale ha un pezzo del colore c
 - se la casella finale è vuota o ha un pezzo del colore opposto
-- se quel pezzo può fare la mossa
+- se quel pezzo può fare la mossa -> `isValidMove()`
+
 dopo la mossa:
-- che il re di colore c non sia in scacco -> `isInCheck()`
+- che il re di colore c non sia in scacco -> `isInCheck()` -> in chessboard
+- se il re del colore opposto è in scacco -> `isInCheck()`
 - se c'è uno stallo, se si -> patta -> `isStalemate()`
+
+
+# Prossimi step
+- `isInCheck()`
+
+

@@ -1,6 +1,6 @@
 #include "..\header_files\Bishop.h"
 
-Bishop::Bishop(Colour c) : Piece(c) {};
+Bishop::Bishop(Colour c, unsigned int id) : Piece(c, id) {};
 
 bool Bishop::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
    if (start_cell == end_cell) {

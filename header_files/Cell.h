@@ -15,9 +15,10 @@ class Cell {
 
     public:
         class InvalidCell{}; // REMINDER: decide if it's the right place for exceptions
-        const unsigned int LENGTH_STRING_OF_A_CELL = 2;
-        const unsigned int MAX_ROWS_COLS = 8;
+        static const unsigned int LENGTH_STRING_OF_A_CELL = 2;
+        static const unsigned int MAX_ROWS_COLS = 8;
 
+        Cell();
         Cell(unsigned int r, unsigned int c);
         Cell(string& s);
         unsigned int getRow() const;

@@ -8,7 +8,7 @@ enum class Colour {white, black};
 
 class Piece {
     public:
-        Piece(Colour c);
+        Piece(Colour c, unsigned int id);
         virtual ~Piece() {};
 
         virtual bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const = 0;
@@ -17,6 +17,7 @@ class Piece {
         Colour getPieceColour() const;
     private:
         Colour pieceColour;
+        unsigned int _id;
 };
 
 ostream& operator<<(ostream& of, const Piece& p);

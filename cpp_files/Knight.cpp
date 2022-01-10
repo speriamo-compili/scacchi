@@ -1,6 +1,6 @@
 #include "..\header_files\Knight.h"
 
-Knight::Knight(Colour c) : Piece(c) {};
+Knight::Knight(Colour c, unsigned int id) : Piece(c, id) {};
 
 bool Knight::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
    int delta_row = abs(static_cast<int>(start_cell.getRow()) - static_cast<int>(end_cell.getRow()));

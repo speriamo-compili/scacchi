@@ -1,6 +1,6 @@
 #include "..\header_files\King.h"
 
-King::King(Colour c) : Piece(c) {};
+King::King(Colour c, unsigned int id) : Piece(c, id) {};
 
 bool King::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
    int delta_row = start_cell.getRow() - end_cell.getRow();

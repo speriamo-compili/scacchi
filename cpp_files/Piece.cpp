@@ -1,6 +1,6 @@
 #include "..\header_files\Piece.h"
 
-Piece::Piece(Colour c) : pieceColour(c) {};
+Piece::Piece(Colour c, unsigned int id) : pieceColour(c), _id{id} {};
 
 Colour Piece::getPieceColour() const { 
     return pieceColour; 

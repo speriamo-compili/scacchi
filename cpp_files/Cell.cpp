@@ -1,5 +1,10 @@
 #include "..\header_files\Cell.h"
 
+Cell::Cell() {
+    row = 0;
+    col = 0;
+}
+
 Cell::Cell(unsigned int r, unsigned int c) {
     if (r >= MAX_ROWS_COLS && c >= MAX_ROWS_COLS) {
         throw InvalidCell();

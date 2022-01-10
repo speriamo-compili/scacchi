@@ -6,7 +6,7 @@ class Bishop : public Piece {
     public: 
         const char BISHOP_LETTER = 'A';
 
-        Bishop(Colour c);
+        Bishop(Colour c, unsigned int id);
         ~Bishop() {};
 
         bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
