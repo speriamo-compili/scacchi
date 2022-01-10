@@ -6,7 +6,7 @@ bool Pawn::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) cons
    unsigned int start_row = start_cell.getRow(), start_col = start_cell.getCol();
    unsigned int end_row = end_cell.getRow(), end_col = end_cell.getCol();
 
-   if (getPieceColour() == Colour::white) {
+   if (getColour() == Colour::white) {
       if (board.getPiece(end_cell)) {
          // if there is a piece, it has to move diagonally
          return start_row + 1 == end_row && (start_col + 1 == end_col || start_col - 1 == end_col);
@@ -27,16 +27,20 @@ bool Pawn::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) cons
          return start_col == end_col && (one_step || two_steps);      
       }
    }
-
+   
    return false;
 }
 
 ostream& Pawn::print_piece(ostream& of) const {
-   char c = getPieceColour() == Colour::white ? tolower(PAWN_LETTER) : toupper(PAWN_LETTER);
+   char c = getColour() == Colour::white ? tolower(PAWN_LETTER) : toupper(PAWN_LETTER);
    of << c; 
    return of;
 }
 
 bool Pawn::hasMoved() const {
    return _hasMoved;
+}
+
+char Pawn::getLetter() const {
+   return getColour() == Colour::white ? tolower(PAWN_LETTER) : toupper(PAWN_LETTER);
 }

@@ -250,6 +250,16 @@ dopo la mossa:
 
 
 # Prossimi step
-- `isInCheck()`
+- aggiungere costanti - done
+- `isInCheck(Colour c)` - done
+- `canMove(Colour c)` - done
+- `move()` - done
+- mosse speciali 
+    - promozione - done
+    - en passant
+    - arrocco
+- classe `Game`
+- classe `Player`
+- classe `Computer` e `Human` derivate di `Player`
 
-
+- ricordarsi di aggiornare `hasMoved()`

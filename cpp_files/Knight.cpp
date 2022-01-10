@@ -10,7 +10,11 @@ bool Knight::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) co
 }
 
 ostream& Knight::print_piece(ostream& of) const {
-   char c = getPieceColour() == Colour::white ? tolower(KNIGHT_LETTER) : toupper(KNIGHT_LETTER);
+   char c = getColour() == Colour::white ? tolower(KNIGHT_LETTER) : toupper(KNIGHT_LETTER);
    of << c; 
    return of;
+}
+
+char Knight::getLetter() const {
+   return getColour() == Colour::white ? tolower(KNIGHT_LETTER) : toupper(KNIGHT_LETTER);
 }

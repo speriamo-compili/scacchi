@@ -14,7 +14,7 @@ Cell::Cell(unsigned int r, unsigned int c) {
 }
 
 // check if s represent the coordinate of chessboard's cell
-Cell::Cell(string& s) {
+Cell::Cell(string s) {
     if (s.size() != Cell::LENGTH_STRING_OF_A_CELL) {
         throw InvalidCell();
     }

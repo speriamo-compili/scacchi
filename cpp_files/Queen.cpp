@@ -47,7 +47,11 @@ bool Queen::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) con
 }
 
 ostream& Queen::print_piece(ostream& of) const {
-   char c = getPieceColour() == Colour::white ? tolower(QUEEN_LETTER) : toupper(QUEEN_LETTER);
+   char c = getColour() == Colour::white ? tolower(QUEEN_LETTER) : toupper(QUEEN_LETTER);
    of << c; 
    return of;
+}
+
+char Queen::getLetter() const {
+   return getColour() == Colour::white ? tolower(QUEEN_LETTER) : toupper(QUEEN_LETTER);
 }

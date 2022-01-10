@@ -33,7 +33,11 @@ bool Bishop::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) co
 }
 
 ostream& Bishop::print_piece(ostream& of) const {
-   char c = getPieceColour() == Colour::white ? tolower(BISHOP_LETTER) : toupper(BISHOP_LETTER);
+   char c = getColour() == Colour::white ? tolower(BISHOP_LETTER) : toupper(BISHOP_LETTER);
    of << c; 
    return of;
+}
+
+char Bishop::getLetter() const {
+   return getColour() == Colour::white ? tolower(BISHOP_LETTER) : toupper(BISHOP_LETTER);
 }

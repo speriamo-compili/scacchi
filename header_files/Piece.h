@@ -14,7 +14,10 @@ class Piece {
         virtual bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const = 0;
         virtual ostream& print_piece(ostream& of) const = 0;
 
-        Colour getPieceColour() const;
+        Colour getColour() const;
+        unsigned int getId() const;
+        virtual char getLetter() const = 0;
+
     private:
         Colour pieceColour;
         unsigned int _id;

@@ -29,7 +29,11 @@ bool Rook::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) cons
 }
 
 ostream& Rook::print_piece(ostream& of) const {
-   char c = getPieceColour() == Colour::white ? tolower(ROOK_LETTER) : toupper(ROOK_LETTER);
+   char c = getColour() == Colour::white ? tolower(ROOK_LETTER) : toupper(ROOK_LETTER);
    of << c; 
    return of;
+}
+
+char Rook::getLetter() const {
+   return getColour() == Colour::white ? tolower(ROOK_LETTER) : toupper(ROOK_LETTER);
 }

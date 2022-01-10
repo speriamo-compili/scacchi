@@ -13,7 +13,11 @@ bool King::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) cons
 }
 
 ostream& King::print_piece(ostream& of) const {
-   char c = getPieceColour() == Colour::white ? tolower(KING_LETTER) : toupper(KING_LETTER);
+   char c = getColour() == Colour::white ? tolower(KING_LETTER) : toupper(KING_LETTER);
    of << c; 
    return of;
+}
+
+char King::getLetter() const {
+   return getColour() == Colour::white ? tolower(KING_LETTER) : toupper(KING_LETTER);
 }

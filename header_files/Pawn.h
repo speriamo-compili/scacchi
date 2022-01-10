@@ -14,6 +14,7 @@ class Pawn : public Piece {
 
         bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
         ostream& print_piece(ostream& of) const override;
+        char getLetter() const override;
         bool hasMoved() const;
 };
 

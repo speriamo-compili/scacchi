@@ -20,7 +20,7 @@ class Cell {
 
         Cell();
         Cell(unsigned int r, unsigned int c);
-        Cell(string& s);
+        Cell(string s);
         unsigned int getRow() const;
         unsigned int getCol() const;
         ~Cell() {};
