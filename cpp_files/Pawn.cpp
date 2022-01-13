@@ -3,6 +3,10 @@
 Pawn::Pawn(Colour c, unsigned int id) : Piece(c, id), _hasMoved{false} {};
 
 bool Pawn::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
+   if (!areCellsValid(start_cell, end_cell, board)) {
+      return false;
+   }
+   
    unsigned int start_row = start_cell.getRow(), start_col = start_cell.getCol();
    unsigned int end_row = end_cell.getRow(), end_col = end_cell.getCol();
 

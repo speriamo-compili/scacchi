@@ -3,7 +3,7 @@
 Bishop::Bishop(Colour c, unsigned int id) : Piece(c, id) {};
 
 bool Bishop::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
-   if (start_cell == end_cell) {
+   if (!areCellsValid(start_cell, end_cell, board)) {
       return false;
    }
 

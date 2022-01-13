@@ -3,6 +3,10 @@
 Knight::Knight(Colour c, unsigned int id) : Piece(c, id) {};
 
 bool Knight::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
+   if (!areCellsValid(start_cell, end_cell, board)) {
+      return false;
+   }
+   
    int delta_row = abs(static_cast<int>(start_cell.getRow()) - static_cast<int>(end_cell.getRow()));
    int delta_col = abs(static_cast<int>(start_cell.getCol()) - static_cast<int>(end_cell.getCol()));
 

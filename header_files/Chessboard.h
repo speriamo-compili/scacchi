@@ -37,6 +37,7 @@ class Chessboard {
         
         // TO DELETE
         void print_vec(Colour c);
+        
 
     private:
         void move(Cell *start_cell, Cell *end_cell, Piece *piece_to_move);

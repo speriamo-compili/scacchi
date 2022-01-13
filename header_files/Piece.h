@@ -17,6 +17,7 @@ class Piece {
         Colour getColour() const;
         unsigned int getId() const;
         virtual char getLetter() const = 0;
+        bool areCellsValid(Cell& start_cell, Cell& end_cell, Chessboard& board) const;
 
     private:
         Colour pieceColour;

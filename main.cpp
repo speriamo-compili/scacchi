@@ -1,29 +1,51 @@
 #include <iostream>
 #include <vector>
+#include <cassert>
 #include "header_files\Chessboard.h"
 #include "header_files\Pawn.h"
 #include "header_files\King.h"
 using namespace std;
 
-ostream& operator<< (ostream& os, Cell& c) {
-    os << "{" << c.getRow() + 1 << "," << char('A' + c.getCol()) << "}";
-    return os;
+Chessboard board;    
+Colour currentTurn;
+
+bool isGameOver(Colour c) {
+    bool can_move = board.canMove(c);
+    if (!can_move) {
+        cout << (c == Colour::white ? "bianco in" : "nero in");
+        cout << (board.isInCheck(c) ? " scacco matto" : " patta");
+        return true;
+    }
+    return false;
+}
+
+void alternateTurn() {
+    currentTurn = (currentTurn == Colour::white ? Colour::black : Colour::white);
 }
 
 int main() {
-    Chessboard board;    
-    cout << board;
+    cout << board << "\n";
+    currentTurn = Colour::white;
 
-    Cell a = Cell{"e8"}, b = Cell{"c8"};
-    board.move(a,b);
+    do {
+        string a, b;
+        cout << "Inserisci mossa: ";
+        cin >> a >> b;
+        cout << a << " " << b << "\n\n";
+        Cell start = Cell(a), end = Cell(b);
+        assert(board.getPiece(start)->getColour() == currentTurn);
+        board.move(start, end);
+        cout << board << "\n";
+        alternateTurn();
+    } while(!isGameOver(currentTurn));
 
-    cout << board;
 
-    // cout << (b.isInCheck(Colour::black) ?  "nero scacco" : "nero non scacco") << endl;
-    // cout << (!b.canMove(Colour::black) ? "nero scacco matto" : "nero non scacco matto") << endl;
-
-    // cout << (b.isInCheck(Colour::white) ?  "bianco scacco" : "bianco non scacco") << endl;
-    // cout << (!b.canMove(Colour::white) ? "bianco scacco matto" : "bianco non scacco matto") << endl;
+    // cout << board << "\n";
+    // Cell a = Cell{"e1"}, b = Cell{"c1"};
+    // board.move(a,b);
+    // cout << board << "\n";
+    
+    // board.print_vec(Colour::white);
 }
 
 

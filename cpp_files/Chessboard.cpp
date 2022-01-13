@@ -14,64 +14,61 @@ Chessboard::Chessboard() {
         }
     }
 
-    black_pieces.resize(N_PIECES);
-    white_pieces.resize(N_PIECES);
+    // white_pieces.resize(N_PIECES);
+    // black_pieces.resize(N_PIECES);
 
-    board[0][4] = new King(Colour::white, 4);
-    white_pieces[4] = new Cell{"e1"};
-
-    board[0][0] = new Rook(Colour::white, 0);
-    white_pieces[0] = new Cell{"a1"};
-
-    board[0][7] = new Rook(Colour::white, 7);
-    white_pieces[7] = new Cell{"h1"};
-
-
-    board[7][4] = new King(Colour::black, 4);
-    black_pieces[4] = new Cell{"e8"}; 
-
-    board[7][0] = new Rook(Colour::black, 0);
-    black_pieces[0] = new Cell{"a8"}; 
-
-    board[7][7] = new Rook(Colour::black, 7);
-    black_pieces[4] = new Cell{"h8"}; 
-    
-    board[7][1] = new Queen(Colour::black, 3);
-    black_pieces[3] = new Cell{"b8"}; 
+    // board[0][4] = new King(Colour::white, 4);
+    // white_pieces[4] = new Cell{"e1"};
 
     // board[0][0] = new Rook(Colour::white, 0);
-    // board[0][1] = new Knight(Colour::white, 1);
-    // board[0][2] = new Bishop(Colour::white, 2);
-    // board[0][3] = new Queen(Colour::white, 3);
-    // board[0][4] = new King(Colour::white, 4);
+    // white_pieces[0] = new Cell{"a1"};
+
     // board[0][5] = new Bishop(Colour::white, 5);
-    // board[0][6] = new Knight(Colour::white, 6);
-    // board[0][7] = new Rook(Colour::white, 7);
-    // for (unsigned int c = 0; c < N_COLS; c++) {
-    //     board[1][c] = new Pawn(Colour::white, 8 + c);
-    // }
+    // white_pieces[5] = new Cell{"f1"};
 
-    // white_pieces.resize(N_PIECES);
-    // for (unsigned int i = 0; i < N_PIECES; i++) {
-    //     white_pieces[i] = new Cell{i / N_ROWS, i % N_COLS};
-    // }
-
-    // board[7][0] = new Rook(Colour::black, 0);
-    // board[7][1] = new Knight(Colour::black, 1);
-    // board[7][2] = new Bishop(Colour::black, 2);
-    // board[7][3] = new Queen(Colour::black, 3);
     // board[7][4] = new King(Colour::black, 4);
-    // board[7][5] = new Bishop(Colour::black, 5);
-    // board[7][6] = new Knight(Colour::black, 6);
-    // board[7][7] = new Rook(Colour::black, 7);
-    // for (unsigned int c = 0; c < N_COLS; c++) {
-    //     board[6][c] = new Pawn(Colour::black, 8 + c);
-    // }
+    // black_pieces[4] = new Cell{"e8"};
 
-    // black_pieces.resize(N_PIECES);
-    // for (unsigned int i = 0; i < N_PIECES; i++) {
-    //     black_pieces[i] = new Cell{N_ROWS - 1 - (i / N_ROWS), i % N_COLS};
-    // }
+    // board[7][7] = new Rook(Colour::black, 7);
+    // black_pieces[7] = new Cell{"h8"};
+
+    // board[7][2] = new Bishop(Colour::black, 2);
+    // black_pieces[2] = new Cell{"c8"};
+    
+
+    board[0][0] = new Rook(Colour::white, 0);
+    board[0][1] = new Knight(Colour::white, 1);
+    board[0][2] = new Bishop(Colour::white, 2);
+    board[0][3] = new Queen(Colour::white, 3);
+    board[0][4] = new King(Colour::white, 4);
+    board[0][5] = new Bishop(Colour::white, 5);
+    board[0][6] = new Knight(Colour::white, 6);
+    board[0][7] = new Rook(Colour::white, 7);
+    for (unsigned int c = 0; c < N_COLS; c++) {
+        board[1][c] = new Pawn(Colour::white, 8 + c);
+    }
+
+    white_pieces.resize(N_PIECES);
+    for (unsigned int i = 0; i < N_PIECES; i++) {
+        white_pieces[i] = new Cell{i / N_ROWS, i % N_COLS};
+    }
+
+    board[7][0] = new Rook(Colour::black, 0);
+    board[7][1] = new Knight(Colour::black, 1);
+    board[7][2] = new Bishop(Colour::black, 2);
+    board[7][3] = new Queen(Colour::black, 3);
+    board[7][4] = new King(Colour::black, 4);
+    board[7][5] = new Bishop(Colour::black, 5);
+    board[7][6] = new Knight(Colour::black, 6);
+    board[7][7] = new Rook(Colour::black, 7);
+    for (unsigned int c = 0; c < N_COLS; c++) {
+        board[6][c] = new Pawn(Colour::black, 8 + c);
+    }
+
+    black_pieces.resize(N_PIECES);
+    for (unsigned int i = 0; i < N_PIECES; i++) {
+        black_pieces[i] = new Cell{N_ROWS - 1 - (i / N_ROWS), i % N_COLS};
+    }
 }
 
 Chessboard::~Chessboard() {
@@ -198,6 +195,7 @@ bool Chessboard::isInCheck(const Colour c) {
 
     // take the cell of the king of colour c
     Cell *king_cell = (c == Colour::white ? white_pieces[ID_KING] : black_pieces[ID_KING]);
+
     // assert 
     if (!king_cell) {
         throw InvalidState{};
@@ -227,7 +225,7 @@ bool Chessboard::canMove(const Colour colour) {
                 for (unsigned int c = 0; c < N_COLS; c++) {
                     Cell *end_cell = new Cell{r,c};
                     if (piece_to_move->isValidMove(*start_cell, *end_cell, *this)) {
-
+                        
                         move(start_cell, end_cell, piece_to_move);
 
                         bool canMove = !isInCheck(colour);
@@ -270,14 +268,15 @@ void Chessboard::set_possible_en_passant(Cell& start_cell, Cell& end_cell, Piece
 
 bool Chessboard::is_en_passant(Cell& start_cell, Cell& end_cell, Piece *piece_to_move) {
     bool is_diagonal_move = (start_cell.getRow() - end_cell.getRow() == 1) && abs(static_cast<int>(start_cell.getCol()) - static_cast<int>(end_cell.getCol())) == 1;
-    if (piece_to_move->getLetter() == 'P' && is_diagonal_move && end_cell == *en_passant_cell) {
+    if (piece_to_move->getLetter() == 'P' && is_diagonal_move && en_passant_cell && end_cell == *en_passant_cell) {
         return true;
     }
 
     is_diagonal_move = (start_cell.getRow() - end_cell.getRow()) == -1 && abs(static_cast<int>(start_cell.getCol()) - static_cast<int>(end_cell.getCol())) == 1;
-    if (piece_to_move->getLetter() == 'p' && is_diagonal_move && end_cell == *en_passant_cell) {
+    if (piece_to_move->getLetter() == 'p' && is_diagonal_move && en_passant_cell && end_cell == *en_passant_cell) {
         return true;
     }
+
     return false;
 }
 

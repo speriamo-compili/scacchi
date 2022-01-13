@@ -265,6 +265,3 @@ dopo la mossa:
 - ricordarsi di aggiornare `hasMoved()`
 - controllo se su end_cell c'è un pezzo del colore opposto
 
-
-
-

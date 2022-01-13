@@ -28,4 +28,5 @@ class Cell {
 
 bool operator==(const Cell &a, const Cell &b);
 bool operator!=(const Cell &a, const Cell &b);
+ostream& operator<< (ostream& os, Cell& c);
 #endif

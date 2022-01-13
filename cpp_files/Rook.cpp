@@ -3,7 +3,7 @@
 Rook::Rook(Colour c, unsigned int id) : Piece(c, id), _hasMoved{false} {};
 
 bool Rook::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
-   if (start_cell == end_cell) {
+   if (!areCellsValid(start_cell, end_cell, board)) {
       return false;
    }
    

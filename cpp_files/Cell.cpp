@@ -61,3 +61,8 @@ bool operator==(const Cell &a, const Cell &b) {
 bool operator!=(const Cell &a, const Cell &b) {
     return a.getRow() != b.getRow() || a.getCol() != b.getCol();
 }
+
+ostream& operator<< (ostream& os, Cell& c) {
+    os << "{" << c.getRow() + 1 << "," << char('A' + c.getCol()) << "}";
+    return os;
+}
