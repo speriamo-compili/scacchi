@@ -1,6 +1,6 @@
 #include "..\header_files\King.h"
 
-King::King(Colour c, unsigned int id) : Piece(c, id) {};
+King::King(Colour c, unsigned int id) : Piece(c, id), _hasMoved{false} {};
 
 bool King::isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
    int delta_row = start_cell.getRow() - end_cell.getRow();
@@ -20,4 +20,12 @@ ostream& King::print_piece(ostream& of) const {
 
 char King::getLetter() const {
    return getColour() == Colour::white ? tolower(KING_LETTER) : toupper(KING_LETTER);
+}
+
+bool King::hasMoved() const {
+   return _hasMoved;
+}
+
+void King::set_has_moved(bool b) {
+   _hasMoved = b;
 }

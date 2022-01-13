@@ -3,6 +3,9 @@
 #include "Piece.h"
 
 class King : public Piece {
+    private:
+        bool _hasMoved;
+        
     public:
         const char KING_LETTER = 'R';
 
@@ -12,6 +15,8 @@ class King : public Piece {
         bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
         ostream& print_piece(ostream& of) const override;
         char getLetter() const override;
+        bool hasMoved() const;
+        void set_has_moved(bool b);
 };
 
 #endif

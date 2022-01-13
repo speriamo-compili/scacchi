@@ -16,6 +16,7 @@ class Pawn : public Piece {
         ostream& print_piece(ostream& of) const override;
         char getLetter() const override;
         bool hasMoved() const;
+        void set_has_moved(bool b);
 };
 
 #endif

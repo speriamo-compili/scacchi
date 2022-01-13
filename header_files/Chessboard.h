@@ -24,16 +24,26 @@ class Chessboard {
         void setPiece(const Cell& cell, Piece* p);
 
         void move(Cell& start_cell, Cell& end_cell);
+        void capture_piece();
+        void set_has_moved(Piece *piece_moved);
         void undo_move(Cell *start_cell, Cell *end_cell, Piece *piece_moved);
         bool isInCheck(const Colour c);
         bool canMove(const Colour c);
         void checkPromotion(Cell& end_cell);
-    
+        void set_possible_en_passant(Cell& start_cell, Cell& end_cell, Piece *piece_moved);
+        bool is_en_passant(Cell& start_cell, Cell& end_cell, Piece *piece_to_move);
+        void undo_en_passant(Cell *start_cell, Cell *end_cell, Cell& cell_pawn_to_capture, Piece *piece_moved);
+        bool is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_move);
+        
+        // TO DELETE
+        void print_vec(Colour c);
+
     private:
         void move(Cell *start_cell, Cell *end_cell, Piece *piece_to_move);
         
         Piece *board[N_ROWS][N_COLS], *last_piece_captured;
         vector<Cell*> white_pieces, black_pieces;
+        Cell *en_passant_cell; // cell where the pawn has to go for en-passant
 };
 
 ostream& operator<<(ostream& os, const Chessboard& board);

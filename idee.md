@@ -263,3 +263,8 @@ dopo la mossa:
 - classe `Computer` e `Human` derivate di `Player`
 
 - ricordarsi di aggiornare `hasMoved()`
+- controllo se su end_cell c'è un pezzo del colore opposto
+
+
+
+

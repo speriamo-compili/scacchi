@@ -11,14 +11,14 @@ ostream& operator<< (ostream& os, Cell& c) {
 }
 
 int main() {
-    Chessboard b;    
-    cout << b;
-    Cell a = Cell{"f2"}, c = Cell{"f1"};
-    b.move(a,c);
-    cout << b;
-    Cell d = Cell{"g7"}, e = Cell{"g8"};
-    b.move(d,e);
-    cout << b;
+    Chessboard board;    
+    cout << board;
+
+    Cell a = Cell{"e8"}, b = Cell{"c8"};
+    board.move(a,b);
+
+    cout << board;
+
     // cout << (b.isInCheck(Colour::black) ?  "nero scacco" : "nero non scacco") << endl;
     // cout << (!b.canMove(Colour::black) ? "nero scacco matto" : "nero non scacco matto") << endl;
 

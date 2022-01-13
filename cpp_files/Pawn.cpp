@@ -37,10 +37,14 @@ ostream& Pawn::print_piece(ostream& of) const {
    return of;
 }
 
+char Pawn::getLetter() const {
+   return getColour() == Colour::white ? tolower(PAWN_LETTER) : toupper(PAWN_LETTER);
+}
+
 bool Pawn::hasMoved() const {
    return _hasMoved;
 }
 
-char Pawn::getLetter() const {
-   return getColour() == Colour::white ? tolower(PAWN_LETTER) : toupper(PAWN_LETTER);
+void Pawn::set_has_moved(bool b) {
+   _hasMoved = b;
 }
