@@ -35,15 +35,18 @@ class Chessboard {
         void undo_en_passant(Cell *start_cell, Cell *end_cell, Cell& cell_pawn_to_capture, Piece *piece_moved);
         bool is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_move);
         
+        unsigned int get_pieces_on_board(const Colour c) const;
+        Cell* get_cell_from_piece_id(unsigned int id, const Colour c) const;
+
         // TO DELETE
         void print_vec(Colour c);
-        
 
     private:
         void move(Cell *start_cell, Cell *end_cell, Piece *piece_to_move);
         
         Piece *board[N_ROWS][N_COLS], *last_piece_captured;
         vector<Cell*> white_pieces, black_pieces;
+        unsigned int white_pieces_on_board, black_pieces_on_board;  
         Cell *en_passant_cell; // cell where the pawn has to go for en-passant
 };
 

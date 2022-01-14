@@ -1,9 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <array>
 #include "header_files\Chessboard.h"
 #include "header_files\Pawn.h"
 #include "header_files\King.h"
+#include "header_files\Human.h"
+#include "header_files\Computer.h"
 using namespace std;
 
 Chessboard board;    
@@ -27,6 +30,10 @@ int main() {
     cout << board << "\n";
     currentTurn = Colour::white;
 
+    // Player *p1 = new Computer{currentTurn, board};
+    // array<Cell, 2> move = p1->get_move();
+    // cout << move[0] << " " << move[1] << "\n";
+
     do {
         string a, b;
         cout << "Inserisci mossa: ";
@@ -39,6 +46,9 @@ int main() {
         alternateTurn();
     } while(!isGameOver(currentTurn));
 
+    // Player *p1 = new Human{Colour::white};
+    // array<Cell,2> move = p1->get_move();
+    // cout << move[0] << " " << move[1] << endl;
 
     // cout << board << "\n";
     // Cell a = Cell{"e1"}, b = Cell{"c1"};

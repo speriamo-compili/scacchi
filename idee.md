@@ -106,7 +106,7 @@ Contiene i seguenti metodi:
 - `void move (Cell& start_cell, Cell& end_cell);`
 - `void print_board() const;`
 
-## `Game` (classe astratta)
+## `Game` 
 Partite di due tipi:
 1. giocatore vs computer
 2. computer vs computer
@@ -117,12 +117,8 @@ Tale classe:
 Contiene i seguenti metodi:
 - `move (Cell& start_cell, Cell& end_cell);` controlla che ci sia un pezzo e che questo pezzo sia del giocatore giusto.
 
+## `Player`
 
-Per ogni tipo di partita c'è una classe:
-
-### 1. `PvsC`
-
-### 2. `CvsC`
 
 ## `Computer`
 Genera delle mosse già corrette.

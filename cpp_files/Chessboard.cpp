@@ -49,6 +49,7 @@ Chessboard::Chessboard() {
     }
 
     white_pieces.resize(N_PIECES);
+    white_pieces_on_board = N_PIECES;
     for (unsigned int i = 0; i < N_PIECES; i++) {
         white_pieces[i] = new Cell{i / N_ROWS, i % N_COLS};
     }
@@ -66,6 +67,7 @@ Chessboard::Chessboard() {
     }
 
     black_pieces.resize(N_PIECES);
+    black_pieces_on_board = N_PIECES;
     for (unsigned int i = 0; i < N_PIECES; i++) {
         black_pieces[i] = new Cell{N_ROWS - 1 - (i / N_ROWS), i % N_COLS};
     }
@@ -147,8 +149,10 @@ void Chessboard::move(Cell& start_cell, Cell& end_cell) {
 void Chessboard::capture_piece() {
     if (last_piece_captured && last_piece_captured->getColour() == Colour::white) {
         white_pieces[last_piece_captured->getId()] = nullptr;
+        white_pieces_on_board--;
     } else if (last_piece_captured) {
         black_pieces[last_piece_captured->getId()] = nullptr;
+        black_pieces_on_board--;
     }
 }
 
@@ -185,8 +189,10 @@ void Chessboard::undo_move(Cell *start_cell, Cell *end_cell, Piece *piece_moved)
 
     if (last_piece_captured && last_piece_captured->getColour() == Colour::white) {
         white_pieces[last_piece_captured->getId()] = end_cell;
+        white_pieces_on_board++;
     } else if (last_piece_captured){
         black_pieces[last_piece_captured->getId()] = end_cell;
+        black_pieces_on_board++;
     }
 }
 
@@ -374,6 +380,15 @@ bool Chessboard::is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_m
 
     return false;
 }
+
+unsigned int Chessboard::get_pieces_on_board(const Colour c) const {
+    return c == Colour::white ? white_pieces_on_board : black_pieces_on_board;
+}
+
+Cell* Chessboard::get_cell_from_piece_id(unsigned int id, const Colour c) const {
+    return c == Colour::white ? white_pieces[id] : black_pieces[id];
+}
+
 
 
 ostream& operator<<(ostream& os, const Chessboard& b) {

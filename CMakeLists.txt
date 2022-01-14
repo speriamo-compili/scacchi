@@ -47,6 +47,21 @@ add_library(Chessboard
     cpp_files/Chessboard.cpp
 )
 
+add_library(Player
+    header_files/Player.h
+    cpp_files/Player.cpp
+)
+
+add_library(Human
+    header_files/Human.h
+    cpp_files/Human.cpp
+)
+
+add_library(Computer
+    header_files/Computer.h
+    cpp_files/Computer.cpp
+)
+
 add_executable(main
     main.cpp
 )
@@ -61,4 +76,7 @@ target_link_libraries(main
     Rook
     Bishop
     Piece
+    Human
+    Computer
+    Player
 )
