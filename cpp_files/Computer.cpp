@@ -11,15 +11,19 @@ std::array<Cell, 2> Computer::get_move() const {
     std::vector<Cell> valid_cells;
     
     do {    
-        unsigned int k = rand() % board.get_pieces_on_board(this->get_colour()); 
-        for (unsigned int i = 0, j = 0; i < Chessboard::N_PIECES; i++) {
-            Cell *cell = board.get_cell_from_piece_id(i, this->get_colour());
-            if (cell) {
-                if (j == k) {
-                    start_cell = *cell; 
-                    break;
-                } 
-                j++;
+        if (board.isInCheck(this->get_colour())) {
+            start_cell = *board.get_cell_from_piece_id(Chessboard::ID_KING, this->get_colour());
+        } else {
+            unsigned int k = rand() % board.get_pieces_on_board(this->get_colour()); 
+            for (unsigned int i = 0, j = 0; i < Chessboard::N_PIECES; i++) {
+                Cell *cell = board.get_cell_from_piece_id(i, this->get_colour());
+                if (cell) {
+                    if (j == k) {
+                        start_cell = *cell; 
+                        break;
+                    } 
+                    j++;
+                }
             }
         }
         Piece *piece_to_move = board.getPiece(start_cell);
@@ -27,6 +31,7 @@ std::array<Cell, 2> Computer::get_move() const {
         for (unsigned int r = 0; r < Chessboard::N_ROWS; r++) {
             for (unsigned int c = 0; c < Chessboard::N_COLS; c++) {
                 Cell cell = Cell{r,c};
+                // TO - DO: inserire arrocco e en passant
                 if (piece_to_move->isValidMove(start_cell, cell, board)) {
                     valid_cells.push_back(cell);
                 }

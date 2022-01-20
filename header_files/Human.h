@@ -4,8 +4,11 @@
 
 class Human : public Player {
     public:
-        Human(const Colour c);
+        Human(const Colour c, Chessboard &board);
         std::array<Cell, 2> get_move() const override;
+
+    private:
+        Chessboard &board;
 };
 
 #endif

@@ -62,11 +62,17 @@ add_library(Computer
     cpp_files/Computer.cpp
 )
 
-add_executable(main
-    main.cpp
+add_library(Game
+    header_files/Game.h
+    cpp_files/Game.cpp
 )
 
-target_link_libraries(main
+add_executable(scacchiera
+    scacchiera.cpp
+)
+
+target_link_libraries(scacchiera
+    Game
     Chessboard
     Cell
     King

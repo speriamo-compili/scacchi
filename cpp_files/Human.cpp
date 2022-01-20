@@ -1,6 +1,6 @@
 #include "..\header_files\Human.h"
 
-Human::Human(const Colour c) : Player{c} {};
+Human::Human(const Colour c, Chessboard &b) : Player{c}, board{b} {};
 
 std::array<Cell, 2> Human::get_move() const {
     bool valid_cells;
@@ -20,6 +20,12 @@ std::array<Cell, 2> Human::get_move() const {
             end_cell = Cell{end};
         } catch (Cell::InvalidCell) {
             cout << "The second cell is invalid.\n";
+            valid_cells = false;
+        }
+        // check if the start cell contains a piece of this player 
+        Piece *piece_to_move = board.getPiece(start_cell);
+        if (!piece_to_move || piece_to_move->getColour() != this->get_colour()) {
+            cout << "The start cell doesn't contain a piece of this player\n";
             valid_cells = false;
         }
     } while(!valid_cells);
