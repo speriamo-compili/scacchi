@@ -2,6 +2,9 @@
 #include <vector>
 #include <cassert>
 #include <array>
+#include <random>
+#include <time.h>
+#include <chrono>
 #include "header_files\Chessboard.h"
 #include "header_files\Pawn.h"
 #include "header_files\King.h"
@@ -27,24 +30,34 @@ void alternateTurn() {
 }
 
 int main() {
-    cout << board << "\n";
-    currentTurn = Colour::white;
+    // std::random_device dev;
+    // std::mt19937 rng(dev());
+    // std::uniform_int_distribution<> dist(0, 15);
+
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    srand(seed);
+    for (int i = 0; i < 20; i++)
+        cout << rand() % 15 << endl;
+
+
+    // cout << board << "\n";
+    // currentTurn = Colour::white;
 
     // Player *p1 = new Computer{currentTurn, board};
     // array<Cell, 2> move = p1->get_move();
     // cout << move[0] << " " << move[1] << "\n";
 
-    do {
-        string a, b;
-        cout << "Inserisci mossa: ";
-        cin >> a >> b;
-        cout << a << " " << b << "\n\n";
-        Cell start = Cell(a), end = Cell(b);
-        assert(board.getPiece(start)->getColour() == currentTurn);
-        board.move(start, end);
-        cout << board << "\n";
-        alternateTurn();
-    } while(!isGameOver(currentTurn));
+    // do {
+    //     string a, b;
+    //     cout << "Inserisci mossa: ";
+    //     cin >> a >> b;
+    //     cout << a << " " << b << "\n\n";
+    //     Cell start = Cell(a), end = Cell(b);
+    //     assert(board.getPiece(start)->getColour() == currentTurn);
+    //     board.move(start, end);
+    //     cout << board << "\n";
+    //     alternateTurn();
+    // } while(!isGameOver(currentTurn));
 
     // Player *p1 = new Human{Colour::white};
     // array<Cell,2> move = p1->get_move();

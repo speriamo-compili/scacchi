@@ -33,36 +33,76 @@ std::array<Colour, 2> Game::get_random_colours() {
     return res;
 }
 
+void Game::print_log(const string &str) {
+    log << str;
+}
+
 void Game::alternate_turn() {
     current_turn = !current_turn;
 }
 
 bool Game::is_game_over() {
+    if (n_moves >= MAX_MOVES_CC_GAME) {
+        cout << "The game has reached its maximum number of moves. (" << MAX_MOVES_CC_GAME << ")\n";
+        return true;
+    }
+    // if only two kings are left, it's impossible to force the checkmate
+    if (board.get_pieces_on_board(Colour::white) == 1 && board.get_pieces_on_board(Colour::black) == 1) {
+        cout << "It's impossible to force the checkmate with only two kings left.\nThe game ended in a draw.\n";
+        return true;
+    }
+
     Colour current_colour = current_turn ? p1->get_colour() : p2->get_colour();
     bool can_move = board.canMove(current_colour);
     if (!can_move) {
-        // TO FIX
-        cout << (current_colour == Colour::white ? "bianco in" : "nero in");
-        cout << (board.isInCheck(current_colour) ? " scacco matto" : " stallo");
+        cout << (current_colour == Colour::white ? "White" : "Black") << " in ";
+        if (board.isInCheck(current_colour)) {
+            cout << "checkmate.\n" << (current_colour == Colour::white ? "Black" : "White") << " wins.\n";
+        } else {
+            cout << "stalemate.\nThe game ended in a draw.\n";
+        }
         return true;
     }
     return false;
 }
 
 void Game::play() {
+    log.open(LOG_FILE);
+
     do {
-        cout << board << "\n";
-
         std::array<Cell, 2> move;
-        if (current_turn) {
-            move = p1->get_move();
-        } else {
-            move = p2->get_move();
-        }
+        bool valid_move = true;
 
-        board.move(move[0], move[1]);
+        do {
+            if (current_turn) {
+                move = p1->get_move();
+            } else {
+                move = p2->get_move();
+            }
+
+            try {
+                board.move(move[0], move[1]);
+                valid_move = true;
+            } catch(const Chessboard::InvalidMove& e) {
+                if (!is_cc_game && current_turn) {
+                    cout << "Invalid move.\n";
+                }
+                valid_move = false;
+            } catch(const Chessboard::InvalidMove_KingOnCheck& e) {
+                if (!is_cc_game && current_turn) {
+                    cout << "Invalid move: after this move, your king would be in check.\n";
+                }
+                valid_move = false;
+            }
+
+        } while (!valid_move);
+
+        log << move[0] << " " << move[1] << "\n";
+        n_moves++;
         alternate_turn();
     } while(!is_game_over());
+
+    log.close();
 }
 
 Game::~Game() {

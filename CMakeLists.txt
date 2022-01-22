@@ -67,6 +67,11 @@ add_library(Game
     cpp_files/Game.cpp
 )
 
+add_library(Replay_class
+    header_files/Replay.h
+    cpp_files/Replay.cpp
+)
+
 add_executable(scacchiera
     scacchiera.cpp
 )
@@ -85,4 +90,21 @@ target_link_libraries(scacchiera
     Human
     Computer
     Player
+)
+
+add_executable(replay
+    replay.cpp
+)
+
+target_link_libraries(replay
+    Replay_class
+    Chessboard
+    Cell
+    King
+    Knight
+    Pawn
+    Queen
+    Rook
+    Bishop
+    Piece
 )

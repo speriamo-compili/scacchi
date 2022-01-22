@@ -6,6 +6,7 @@
 #include "..\header_files\Pawn.h"
 #include "..\header_files\Queen.h"
 #include "..\header_files\Rook.h"
+#include <assert.h>
 
 Chessboard::Chessboard() {
     for (unsigned int r = 0; r < N_ROWS; r++) {
@@ -14,38 +15,16 @@ Chessboard::Chessboard() {
         }
     }
 
-    // white_pieces.resize(N_PIECES);
-    // black_pieces.resize(N_PIECES);
-
-    // board[0][4] = new King(Colour::white, 4);
-    // white_pieces[4] = new Cell{"e1"};
-
-    // board[0][0] = new Rook(Colour::white, 0);
-    // white_pieces[0] = new Cell{"a1"};
-
-    // board[0][5] = new Bishop(Colour::white, 5);
-    // white_pieces[5] = new Cell{"f1"};
-
-    // board[7][4] = new King(Colour::black, 4);
-    // black_pieces[4] = new Cell{"e8"};
-
-    // board[7][7] = new Rook(Colour::black, 7);
-    // black_pieces[7] = new Cell{"h8"};
-
-    // board[7][2] = new Bishop(Colour::black, 2);
-    // black_pieces[2] = new Cell{"c8"};
-    
-
-    board[0][0] = new Rook(Colour::white, 0);
-    board[0][1] = new Knight(Colour::white, 1);
-    board[0][2] = new Bishop(Colour::white, 2);
-    board[0][3] = new Queen(Colour::white, 3);
-    board[0][4] = new King(Colour::white, 4);
-    board[0][5] = new Bishop(Colour::white, 5);
-    board[0][6] = new Knight(Colour::white, 6);
-    board[0][7] = new Rook(Colour::white, 7);
+    board[0][0] = new Rook(Colour::white, ID_FIRST_ROOK);
+    board[0][1] = new Knight(Colour::white, ID_FIRST_KNIGHT);
+    board[0][2] = new Bishop(Colour::white, ID_FIRST_BISHOP);
+    board[0][3] = new Queen(Colour::white, ID_QUEEN);
+    board[0][4] = new King(Colour::white, ID_KING);
+    board[0][5] = new Bishop(Colour::white, ID_SECOND_BISHOP);
+    board[0][6] = new Knight(Colour::white, ID_SECOND_KNIGHT);
+    board[0][7] = new Rook(Colour::white, ID_SECOND_ROOK);
     for (unsigned int c = 0; c < N_COLS; c++) {
-        board[1][c] = new Pawn(Colour::white, 8 + c);
+        board[1][c] = new Pawn(Colour::white, ID_FIRST_PAWN + c);
     }
 
     white_pieces.resize(N_PIECES);
@@ -54,16 +33,16 @@ Chessboard::Chessboard() {
         white_pieces[i] = new Cell{i / N_ROWS, i % N_COLS};
     }
 
-    board[7][0] = new Rook(Colour::black, 0);
-    board[7][1] = new Knight(Colour::black, 1);
-    board[7][2] = new Bishop(Colour::black, 2);
-    board[7][3] = new Queen(Colour::black, 3);
-    board[7][4] = new King(Colour::black, 4);
-    board[7][5] = new Bishop(Colour::black, 5);
-    board[7][6] = new Knight(Colour::black, 6);
-    board[7][7] = new Rook(Colour::black, 7);
+    board[7][0] = new Rook(Colour::black, ID_FIRST_ROOK);
+    board[7][1] = new Knight(Colour::black, ID_FIRST_KNIGHT);
+    board[7][2] = new Bishop(Colour::black, ID_FIRST_BISHOP);
+    board[7][3] = new Queen(Colour::black, ID_QUEEN);
+    board[7][4] = new King(Colour::black, ID_KING);
+    board[7][5] = new Bishop(Colour::black, ID_SECOND_BISHOP);
+    board[7][6] = new Knight(Colour::black, ID_SECOND_KNIGHT);
+    board[7][7] = new Rook(Colour::black, ID_SECOND_ROOK);
     for (unsigned int c = 0; c < N_COLS; c++) {
-        board[6][c] = new Pawn(Colour::black, 8 + c);
+        board[6][c] = new Pawn(Colour::black, ID_FIRST_PAWN + c);
     }
 
     black_pieces.resize(N_PIECES);
@@ -223,7 +202,7 @@ bool Chessboard::isInCheck(const Colour c) {
 
 bool Chessboard::canMove(const Colour colour) {
     // check if the player with colour c can move
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < N_PIECES; i++) {
         Cell *start_cell = (colour == Colour::white ? white_pieces[i] : black_pieces[i]);
         if (start_cell) {
             Piece *piece_to_move = getPiece(*start_cell);
@@ -308,7 +287,11 @@ void Chessboard::undo_en_passant(Cell *start_cell, Cell *end_cell, Cell& cell_pa
 }
 
 bool Chessboard::is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_move) {
-    if (piece_to_move->getLetter() != 'r' && piece_to_move->getLetter() != 'R') {
+    assert(start_cell && end_cell && piece_to_move);
+
+    bool is_king = piece_to_move->getLetter() == 'r' || piece_to_move->getLetter() == 'R';
+    bool same_row = start_cell->getRow() == end_cell->getRow();
+    if (!is_king || !same_row) {
         return false;
     }
     
@@ -318,8 +301,13 @@ bool Chessboard::is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_m
     // castling short
     if (!king_has_moved && delta_col == -2) {
         Piece *rook = getPiece(Cell{start_cell->getRow(), start_cell->getCol() + 3});
-        // the rook isn't in the right place        
+        // the rook isn't in the right place   
         if (!rook) {
+            return false;
+        } 
+        bool right_rook = (piece_to_move->getLetter() == 'r' && rook->getLetter() == 't') || 
+                          (piece_to_move->getLetter() == 'R' && rook->getLetter() == 'T');     
+        if (!right_rook) {
             return false;
         }
         bool rook_has_moved = dynamic_cast<Rook*>(rook)->hasMoved();
@@ -349,6 +337,11 @@ bool Chessboard::is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_m
         Piece *rook = getPiece(Cell{start_cell->getRow(), start_cell->getCol() - 4});
         // the rook isn't in the right place        
         if (!rook) {
+            return false;
+        } 
+        bool right_rook = (piece_to_move->getLetter() == 'r' && rook->getLetter() == 't') || 
+                          (piece_to_move->getLetter() == 'R' && rook->getLetter() == 'T');     
+        if (!right_rook) {
             return false;
         }
         bool rook_has_moved = dynamic_cast<Rook*>(rook)->hasMoved();
@@ -392,8 +385,22 @@ Cell* Chessboard::get_cell_from_piece_id(unsigned int id, const Colour c) const 
 
 
 ostream& operator<<(ostream& os, const Chessboard& b) {
+    // const char HORIZONTAL_SIDE = char(205);
+    // const char VERTICAL_SIDE = char(186);
+    // const char UP_LEFT_ANGLE = char(201);
+    // const char UP_RIGHT_ANGLE = char(187);
+    // const char DOWN_LEFT_ANGLE = char(200);
+    // const char DOWN_RIGHT_ANGLE = char(188);
+    const char HORIZONTAL_SIDE = char(196);
+    const char VERTICAL_SIDE = char(179);
+    const char UP_LEFT_ANGLE = char(218);
+    const char UP_RIGHT_ANGLE = char(191);
+    const char DOWN_LEFT_ANGLE = char(192);
+    const char DOWN_RIGHT_ANGLE = char(217);
+
+    os << "  " << UP_LEFT_ANGLE << string(8, HORIZONTAL_SIDE) << UP_RIGHT_ANGLE << endl;
     for (unsigned int r = Chessboard::N_ROWS; r > 0; r--) {
-        os << r << " ";
+        os << r << " " << VERTICAL_SIDE;
         for (unsigned int c = 0; c < Chessboard::N_COLS; c++) {
             Piece* p = b.getPiece(Cell{r - 1, c});
             if (p)
@@ -401,9 +408,9 @@ ostream& operator<<(ostream& os, const Chessboard& b) {
             else    
                 os << " ";
         }
-        os << endl;
+        os << VERTICAL_SIDE << endl;
     }
-    os << endl << "  ";
+    os << "  " << DOWN_LEFT_ANGLE << string(8, HORIZONTAL_SIDE) << DOWN_RIGHT_ANGLE << endl << "   ";
     for (unsigned int i = 0; i < Chessboard::N_COLS; i++) {
         os << char('A' + i);
     }

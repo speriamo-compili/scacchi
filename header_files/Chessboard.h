@@ -3,8 +3,8 @@
 #include "Cell.h"
 #include <vector>
 
-enum class Colour;
 class Piece;
+enum class Colour : short;
 
 class Chessboard {
     public:
@@ -15,7 +15,16 @@ class Chessboard {
         static constexpr unsigned int N_ROWS = 8;
         static constexpr unsigned int N_COLS = 8;
         static constexpr unsigned int N_PIECES = 16;
+
+        static constexpr unsigned int ID_FIRST_ROOK = 0;
+        static constexpr unsigned int ID_FIRST_KNIGHT = 1;
+        static constexpr unsigned int ID_FIRST_BISHOP = 2;
+        static constexpr unsigned int ID_QUEEN = 3;
         static constexpr unsigned int ID_KING = 4;
+        static constexpr unsigned int ID_SECOND_BISHOP = 5;
+        static constexpr unsigned int ID_SECOND_KNIGHT = 6;
+        static constexpr unsigned int ID_SECOND_ROOK = 7;
+        static constexpr unsigned int ID_FIRST_PAWN = 8;
 
         Chessboard();
         ~Chessboard();

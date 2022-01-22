@@ -4,7 +4,7 @@
 #include "Cell.h"
 #include <fstream>
 
-enum class Colour {white, black};
+enum class Colour : short {white, black};
 
 class Piece {
     public:
@@ -25,5 +25,6 @@ class Piece {
 };
 
 ostream& operator<<(ostream& of, const Piece& p);
+ostream& operator<<(ostream& of, const Colour& c);
 
 #endif

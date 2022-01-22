@@ -63,6 +63,6 @@ bool operator!=(const Cell &a, const Cell &b) {
 }
 
 ostream& operator<< (ostream& os, Cell& c) {
-    os << "{" << c.getRow() + 1 << "," << char('A' + c.getCol()) << "}";
+    os << char('A' + c.getCol()) << c.getRow() + 1;
     return os;
 }

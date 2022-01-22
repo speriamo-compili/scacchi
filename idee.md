@@ -266,3 +266,17 @@ dopo la mossa:
 - inserire arrocco e en passant in `computer::get_move()`
 - classe per eccezioni
 - implementare mossa "XX XX"
+- stallo quando rimangono solo i due re
+- inserire namespace
+- cambiare nomi
+- cambiare promozione (?)
+- catch invalid move del player
+- controllare memory leak
+
+# Problema
+- quando il Computer muove un pezzo, bisogna stare attenti che dopo quella mossa il proprio re non sia in scacco
+
+## Soluzioni
+- dentro il metodo `get_move()` di `Computer` per vedere se la mossa è valida provo a fare la mossa, guardo se è scacco, e poi faccio l'undo
+- faccio un backup delle possibili mosse nella classe `Chessboard`
+- catch dell'eccezione e richiedo un'altra mossa al Computer finchè non ne da una giusta

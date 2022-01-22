@@ -25,3 +25,8 @@ bool Piece::areCellsValid(Cell& start_cell, Cell& end_cell, Chessboard& board) c
 ostream& operator<<(ostream& of, const Piece& p) {
     return p.print_piece(of); 
 }
+
+ostream& operator<<(ostream& of, const Colour& c) {
+    of << (c == Colour::white ? "white" : "black");
+    return of;
+}
