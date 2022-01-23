@@ -12,4 +12,6 @@ class Human : public Player {
         Chessboard &board;
 };
 
+string to_lower(const string &s);
+
 #endif

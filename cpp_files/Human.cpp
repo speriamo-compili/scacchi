@@ -11,7 +11,7 @@ std::array<Cell, 2> Human::get_move() const {
         std::cin >> start >> end;
         valid_cells = true;
 
-        if (start == "XX" && end == "XX") {
+        if (to_lower(start) == "xx" && to_lower(end) == "xx") {
             cout << "\n" << board << "\n";
             valid_cells = false;
         } else {
@@ -53,12 +53,20 @@ bool Human::ask_for_draw() {
         std::cin >> ans;
         valid_ans = true;
         
-        if (ans.size() != 1 || (tolower(ans[0]) != 'y' && tolower(ans[0]) != 'n')) {
+        if (to_lower(ans) != "y" && to_lower(ans) != "n") {
             std::cout << "You have to answer with 'y' or 'n'.\n";
             valid_ans = false;
         }
 
     } while(!valid_ans);
 
-    return tolower(ans[0]) == 'y';
+    return to_lower(ans) == "y";
+}
+
+string to_lower(const string &s) {
+    string res = "";
+    for (char c : s) {
+        res += tolower(c);
+    }
+    return res;
 }
