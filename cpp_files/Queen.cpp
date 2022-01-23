@@ -1,3 +1,8 @@
+/**
+ * @file Queen.cpp
+ * @author Simone Corrò
+ */
+
 #include "../header_files/Queen.h"
 
 Queen::Queen(Colour c, unsigned int id) : Piece(c, id) {};

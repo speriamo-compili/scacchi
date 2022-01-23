@@ -1,7 +1,14 @@
+/**
+ * @file Game.h
+ * @author Samuel Piron
+ */
+
 #ifndef GAME_H
 #define GAME_H
+
 #include "Chessboard.h"
 #include "Player.h"
+
 #include <random>
 #include <map>
 
@@ -27,6 +34,7 @@ class Game {
         static constexpr unsigned int MAX_MOVES_CC_GAME = 500;
         static constexpr unsigned int FIFTY_MOVES = 50;
         static constexpr unsigned int THREEFOLD_REPETITION = 3;
+        static constexpr unsigned int FIVEFOLD_REPETITION = 5;
 
         const string LOG_FILE = "log.txt";
 

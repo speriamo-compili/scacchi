@@ -1,5 +1,11 @@
+/**
+ * @file Computer.h
+ * @author Simone Corrò
+ */
+
 #ifndef COMPUTER_H
 #define COMPUTER_H
+
 #include "Player.h"
 #include "Chessboard.h"
 

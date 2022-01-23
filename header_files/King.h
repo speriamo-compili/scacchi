@@ -1,5 +1,11 @@
+/**
+ * @file King.h
+ * @author Simone Corrò
+ */
+
 #ifndef KING_H
 #define KING_H
+
 #include "Piece.h"
 
 class King : public Piece {

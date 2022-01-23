@@ -280,3 +280,15 @@ dopo la mossa:
 - dentro il metodo `get_move()` di `Computer` per vedere se la mossa è valida provo a fare la mossa, guardo se è scacco, e poi faccio l'undo
 - faccio un backup delle possibili mosse nella classe `Chessboard`
 - catch dell'eccezione e richiedo un'altra mossa al Computer finchè non ne da una giusta
+
+
+# Autori
+Pezzi: Bishop, King, Knight, Pawn, Queen, Rook
+
+Chessboard, Cell (68), Computer (53), Game (150), Human (72), Piece (32), Player (7), 
+scacchiera (24), replay (22), cmakelist (114)
+
+Lorenzo: Chessboard (435), cmakelist (114), replay (22), scacchiera (24) -> tot = 595
+Samuel: Pawn (54), Rook (47), Knight (24), Game (150), Replay (80), Player (7) -> tot = 362 
+Simone: Queen (57), Bishop (43), King (35), Cell (68), Human (72), Computer (55), Piece (32) -> tot = 362
+ 

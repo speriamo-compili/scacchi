@@ -1,3 +1,8 @@
+/**
+ * @file Player.cpp
+ * @author Samuel Piron
+ */
+
 #include "../header_files/Player.h"
 
 Player::Player(const Colour c) : colour(c) {};

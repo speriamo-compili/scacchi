@@ -1,6 +1,13 @@
+/**
+ * @file Chessboard.h
+ * @author Lorenzo Cazzador
+ */
+
 #ifndef CHESSBOARD_H
 #define CHESSBOARD_H
+
 #include "Cell.h"
+
 #include <vector>
 
 class Piece;

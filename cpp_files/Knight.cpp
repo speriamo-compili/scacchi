@@ -1,3 +1,8 @@
+/**
+ * @file Knight.cpp
+ * @author Samuel Piron
+ */
+
 #include "../header_files/Knight.h"
 
 Knight::Knight(Colour c, unsigned int id) : Piece(c, id) {};

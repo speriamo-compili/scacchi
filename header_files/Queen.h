@@ -1,5 +1,11 @@
+/**
+ * @file Queen.h
+ * @author Simone Corrò
+ */
+
 #ifndef QUEEN_H
 #define QUEEN_H
+
 #include "Piece.h"
 
 class Queen : public Piece {

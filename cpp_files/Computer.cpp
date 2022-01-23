@@ -1,4 +1,10 @@
+/**
+ * @file Computer.cpp
+ * @author Simone Corrò
+ */
+
 #include "../header_files/Computer.h"
+
 #include <random>
 #include <chrono>
 #include <cassert>

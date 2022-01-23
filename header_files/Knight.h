@@ -1,5 +1,11 @@
+/**
+ * @file Knight.h
+ * @author Samuel Piron
+ */
+
 #ifndef KNIGHT_H
 #define KNIGHT_H
+
 #include "Piece.h"
 
 class Knight : public Piece {

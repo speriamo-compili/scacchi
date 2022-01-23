@@ -1,5 +1,11 @@
+/**
+ * @file Cell.h
+ * @author Simone Corrò
+ */
+
 #ifndef CELL_H
 #define CELL_H
+
 #include <iostream>
 using namespace std;
 

@@ -1,6 +1,13 @@
+/**
+ * @file Replay.h
+ * @author Samuel Piron
+ */
+
 #ifndef REPLAY_H
 #define REPLAY_H
+
 #include "Piece.h"
+
 #include <fstream>
 
 class Replay {
@@ -13,7 +20,7 @@ class Replay {
         Colour colour_to_move;
 
         void print_board();
-        void end_game(); 
+        void end_game(const string &result, const string &reason); 
 
     public:
 

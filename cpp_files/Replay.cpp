@@ -1,4 +1,10 @@
+/**
+ * @file Replay.cpp
+ * @author Samuel Piron
+ */
+
 #include "../header_files/Replay.h"
+
 #include <chrono>
 #include <thread>
 
@@ -14,26 +20,39 @@ void Replay::print_board() {
     }
 }
 
-void Replay::end_game() {
+void Replay::end_game(const string &result, const string &reason) {
     cout << "───── Game ended ─────\n\n"; 
-    
-    if (board.get_pieces_on_board(Colour::white) == 1 && board.get_pieces_on_board(Colour::black) == 1) {
-        cout << "It's impossible to force the checkmate with only two kings left.\nThe game ended in a draw.\n";
-        return;
-    }
 
-    bool can_move = board.can_move(colour_to_move);
-    if (!can_move) {
-        cout << (colour_to_move == Colour::white ? "White" : "Black") << " in ";
-        if (board.is_in_check(colour_to_move)) {
-            cout << "checkmate.\n" << (colour_to_move == Colour::white ? "Black" : "White") << " wins.\n";
-        } else {
-            cout << "stalemate.\nThe game ended in a draw.\n";
-        }
-    } else {
+    if (reason == "Wcm") {
+        cout << "White in checkmate.\n";
+    } else if (reason == "Bcm") {
+        cout << "Black in checkmate.\n";
+    } else if (reason == "Wsm") {
+        cout << "White in stalemate.\n";
+    } else if (reason == "Bsm") {
+        cout << "Black in stalemate.\n";
+    } else if (reason == "rvsR") {
+        cout << "It's impossible to force the checkmate with only two kings left.\n";
+    } else if (reason == "50m") {
+        cout << "In the last 50 moves, no player has captured a piece or moved a pawn.\n";
+    } else if (reason == "max") {
         cout << "The game has reached its maximum number of moves.\n";
+    } else if (reason == "3r") {
+        cout << "The same board configuration occurred 3 times. The player decided to end the game in a draw.\n";
+    } else if (reason == "5r") {
+        cout << "The same board configuration occurred 5 times.\n";
+    } else {
+        cout << "The game was interrupted before the end.\n";
     }
 
+    if (result == "D") {
+        cout << "The game ended in a draw.\n";
+    } else if (result == "W") {
+        cout << "White wins.\n";
+    } else if (result == "B") {
+        cout << "Black wins.\n";
+    }
+    
     return;
 }
 
@@ -54,17 +73,23 @@ void Replay::print() {
     print_board();
     int move = 1;
     colour_to_move = Colour::white;
+    string start, end;
+
     while (!input_file.eof()) {
         if (!print_on_file) {
-            std::this_thread::sleep_for(std::chrono::seconds(1));
+            // std::this_thread::sleep_for(std::chrono::seconds(1));
         }
         
-        string start, end;
         input_file >> start >> end;
 
         // blank line
         if (start == "" && end == "") {
             continue;
+        }
+
+        // end of the game
+        if (start.size() == 1) {
+            break;
         }
 
         Cell start_cell(start), end_cell(end);
@@ -74,7 +99,8 @@ void Replay::print() {
         colour_to_move = colour_to_move == Colour::white ? Colour::black : Colour::white;
     }
 
-    end_game();
+
+    end_game(start, end);
     input_file.close();
     output_file.close();
 }

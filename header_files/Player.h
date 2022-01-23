@@ -1,7 +1,14 @@
+/**
+ * @file Player.h
+ * @author Samuel Piron
+ */
+
 #ifndef PLAYER_H
 #define PLAYER_H
+
 #include "Piece.h"
 #include "Cell.h"
+
 #include <array>
 
 class Player {

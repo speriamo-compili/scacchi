@@ -1,3 +1,8 @@
+/**
+ * @file Human.cpp
+ * @author Simone Corrò
+ */
+
 #include "../header_files/Human.h"
 
 Human::Human(const Colour c, Chessboard &b) : Player{c}, board{b} {};

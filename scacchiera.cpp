@@ -1,5 +1,11 @@
-#include <iostream>
+/**
+ * @file scacchiera.cpp
+ * @author Lorenzo Cazzador
+ */
+
 #include "header_files/Game.h"
+
+#include <iostream>
 
 void print_error() {
     cout << "You have to pass one command line argument! (pc or cc)\n" 

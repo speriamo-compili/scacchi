@@ -1,6 +1,12 @@
+/**
+ * @file Game.cpp
+ * @author Samuel Piron
+ */
+
 #include "../header_files/Game.h"
 #include "../header_files/Computer.h"
 #include "../header_files/Human.h"
+
 #include <time.h>
 
 // default game is human vs computer
@@ -60,6 +66,7 @@ bool Game::is_game_over() {
     // if only two kings are left, it's impossible to force the checkmate
     if (board.get_pieces_on_board(Colour::white) == 1 && board.get_pieces_on_board(Colour::black) == 1) {
         cout << "It's impossible to force the checkmate with only two kings left.\nThe game ended in a draw.\n";
+        log << "D rvsR";
         return true;
     }
 
@@ -69,19 +76,23 @@ bool Game::is_game_over() {
         cout << (current_colour == Colour::white ? "White" : "Black") << " in ";
         if (board.is_in_check(current_colour)) {
             cout << "checkmate.\n" << (current_colour == Colour::white ? "Black" : "White") << " wins.\n";
+            log << (current_colour == Colour::white ? "B W" : "W B") << "cm";
         } else {
             cout << "stalemate.\nThe game ended in a draw.\n";
+            log << "D " << (current_colour == Colour::white ? "W" : "B") << "sm";
         }
         return true;
     }
 
     if (stalemate_counter >= FIFTY_MOVES) {
         cout << "In the last 50 moves, no player has captured a piece or moved a pawn. The game ended in a draw.\n";
+        log << "D 50m";
         return true;
     }
     
     if (n_moves >= MAX_MOVES_CC_GAME) {
         cout << "The game has reached its maximum number of moves. (" << MAX_MOVES_CC_GAME << ")\n";
+        log << "D max";
         return true;
     }
 
@@ -89,8 +100,15 @@ bool Game::is_game_over() {
         bool draw =  dynamic_cast<Human*>(p1)->ask_for_draw();
         if (draw) {
             cout << "The game ended in a draw.\n";
+            log << "D 3r";
             return true;
         }
+    }
+
+    if (previous_boards[board.to_string()] == FIVEFOLD_REPETITION && !is_cc_game) {
+        cout << "The same board configuration occurred 5 times. The game ended in a draw.\n";
+        log << "D 5r";
+        return true;
     }
 
     return false;
@@ -128,6 +146,11 @@ void Game::play() {
         } while (!valid_move);
 
         log << move[0] << " " << move[1] << "\n";
+        
+        if (!is_cc_game && !current_turn) {
+            cout << "\nThe computer's move is: " << move[0] << " " << move[1] << "\n\n";
+        }
+
         n_moves++;
         update_stalemate_counter(move);
         update_previous_board();
@@ -142,4 +165,7 @@ Game::~Game() {
     p1 = nullptr;
     delete p2;
     p2 = nullptr;
+    if (log.is_open()) {
+        log.close();
+    }
 }

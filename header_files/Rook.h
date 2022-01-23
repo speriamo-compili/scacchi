@@ -1,5 +1,11 @@
+/**
+ * @file Rook.h
+ * @author Samuel Piron
+ */
+
 #ifndef ROOK_H
 #define ROOK_H
+
 #include "Piece.h"
 
 class Rook : public Piece {

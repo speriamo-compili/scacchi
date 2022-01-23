@@ -1,3 +1,8 @@
+/**
+ * @file Chessboard.h
+ * @author Lorenzo Cazzador
+ */
+
 #include "../header_files/Chessboard.h"
 #include "../header_files/Piece.h"
 #include "../header_files/Bishop.h"
@@ -6,6 +11,7 @@
 #include "../header_files/Pawn.h"
 #include "../header_files/Queen.h"
 #include "../header_files/Rook.h"
+
 #include <assert.h>
 
 Chessboard::Chessboard() {
@@ -401,12 +407,18 @@ string Chessboard::to_string() {
 }
 
 ostream& operator<<(ostream& os, const Chessboard& b) {
-    const string HORIZONTAL_SIDE = "─";
-    const string VERTICAL_SIDE = "│";
-    const string UP_LEFT_ANGLE = "┌";
-    const string UP_RIGHT_ANGLE = "┐";
-    const string DOWN_LEFT_ANGLE = "└";
-    const string DOWN_RIGHT_ANGLE = "┘";
+    const char HORIZONTAL_SIDE = char(196);
+    const char VERTICAL_SIDE = char(179);
+    const char UP_LEFT_ANGLE = char(218);
+    const char UP_RIGHT_ANGLE = char(191);
+    const char DOWN_LEFT_ANGLE = char(192);
+    const char DOWN_RIGHT_ANGLE = char(217);
+    // const string HORIZONTAL_SIDE = "─";
+    // const string VERTICAL_SIDE = "│";
+    // const string UP_LEFT_ANGLE = "┌";
+    // const string UP_RIGHT_ANGLE = "┐";
+    // const string DOWN_LEFT_ANGLE = "└";
+    // const string DOWN_RIGHT_ANGLE = "┘";
 
     os << "  " << UP_LEFT_ANGLE << "────────" << UP_RIGHT_ANGLE << endl;
     for (unsigned int r = Chessboard::N_ROWS; r > 0; r--) {

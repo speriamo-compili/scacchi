@@ -1,3 +1,8 @@
+/**
+ * @file Cell.cpp
+ * @author Simone Corrò
+ */
+
 #include "../header_files/Cell.h"
 
 Cell::Cell() {

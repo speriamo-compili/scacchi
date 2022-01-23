@@ -1,3 +1,8 @@
+/**
+ * @file King.cpp
+ * @author Simone Corrò
+ */
+
 #include "../header_files/King.h"
 
 King::King(Colour c, unsigned int id) : Piece(c, id), _has_moved{false} {};

@@ -1,6 +1,13 @@
+# file: CMakeLists.txt
+# author: Lorenzo Cazzador
+
 cmake_minimum_required(VERSION 3.2)
 
 project(Chess)
+
+set(CMAKE_CXX_FLAGS, "-02")
+set(CMAKE_CXX_FLAGS_DEBUG, "-02")
+set(CMAKE_CXX_FLAGS_RELEASE, "-02")
 
 add_library(Cell
     header_files/Cell.h

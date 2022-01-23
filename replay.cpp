@@ -1,5 +1,11 @@
-#include <iostream>
+/**
+ * @file replay.cpp
+ * @author Lorenzo Cazzador
+ */
+
 #include "header_files/Replay.h"
+
+#include <iostream>
 
 int main(int argc, char *argv[]) {
     if (argc < 3 || argc > 4) {

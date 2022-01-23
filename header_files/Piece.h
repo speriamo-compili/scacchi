@@ -1,7 +1,14 @@
+/**
+ * @file Piece.h
+ * @author Simone Corrò
+ */
+
 #ifndef PIECE_H
 #define PIECE_H
+
 #include "Chessboard.h"
 #include "Cell.h"
+
 #include <fstream>
 
 enum class Colour : short {white, black};
