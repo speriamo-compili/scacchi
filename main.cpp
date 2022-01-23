@@ -5,41 +5,43 @@
 #include <random>
 #include <time.h>
 #include <chrono>
-#include "header_files\Chessboard.h"
-#include "header_files\Pawn.h"
-#include "header_files\King.h"
-#include "header_files\Human.h"
-#include "header_files\Computer.h"
+#include <map>
+// #include "header_files\Chessboard.h"
+// #include "header_files\Pawn.h"
+// #include "header_files\King.h"
+// #include "header_files\Human.h"
+// #include "header_files\Computer.h"
 using namespace std;
 
-Chessboard board;    
-Colour currentTurn;
+// Chessboard board;    
+// Colour currentTurn;
 
-bool isGameOver(Colour c) {
-    bool can_move = board.canMove(c);
-    if (!can_move) {
-        cout << (c == Colour::white ? "bianco in" : "nero in");
-        cout << (board.isInCheck(c) ? " scacco matto" : " patta");
-        return true;
-    }
-    return false;
-}
+// bool isGameOver(Colour c) {
+//     bool can_move = board.canMove(c);
+//     if (!can_move) {
+//         cout << (c == Colour::white ? "bianco in" : "nero in");
+//         cout << (board.isInCheck(c) ? " scacco matto" : " patta");
+//         return true;
+//     }
+//     return false;
+// }
 
-void alternateTurn() {
-    currentTurn = (currentTurn == Colour::white ? Colour::black : Colour::white);
-}
+// void alternateTurn() {
+//     currentTurn = (currentTurn == Colour::white ? Colour::black : Colour::white);
+// }
 
 int main() {
     // std::random_device dev;
     // std::mt19937 rng(dev());
     // std::uniform_int_distribution<> dist(0, 15);
 
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    srand(seed);
-    for (int i = 0; i < 20; i++)
-        cout << rand() % 15 << endl;
+    map<string, int> m;
+    string s = "ciao";
+    m[s]++;
+    m[s]++;
+    m[s]++;
 
-
+    cout << m[s] << endl;
     // cout << board << "\n";
     // currentTurn = Colour::white;
 

@@ -3,6 +3,7 @@
 #include "Chessboard.h"
 #include "Player.h"
 #include <random>
+#include <map>
 
 class Game {
     private:
@@ -11,15 +12,22 @@ class Game {
         bool current_turn; // true -> p1's turn, false -> p2's turn
         bool is_cc_game; 
         unsigned int n_moves;
+        unsigned int stalemate_counter;
         ofstream log;
+        map<string, int> previous_boards;
     
         void alternate_turn();
         bool is_game_over();
         std::array<Colour, 2> get_random_colours();
         void print_log(const string &str);
+        void update_stalemate_counter(std::array<Cell, 2> move);
+        void update_previous_board();
 
     public:
         static constexpr unsigned int MAX_MOVES_CC_GAME = 500;
+        static constexpr unsigned int FIFTY_MOVES = 50;
+        static constexpr unsigned int THREEFOLD_REPETITION = 3;
+
         const string LOG_FILE = "log.txt";
 
         Game();

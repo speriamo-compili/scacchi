@@ -42,3 +42,23 @@ std::array<Cell, 2> Human::get_move() const {
 
     return std::array<Cell, 2>{start_cell, end_cell};
 }
+
+bool Human::ask_for_draw() {
+    bool valid_ans = true;
+    string ans;
+
+    do {
+        // La stessa configurazione della scacchiera si è presentata per 3 volte. Do you want to end the game in a draw? [y/n] 
+        std::cout << "The same board configuration occurred 3 times.\nDo you want to end the game in a draw? [y/n] ";
+        std::cin >> ans;
+        valid_ans = true;
+        
+        if (ans.size() != 1 || (tolower(ans[0]) != 'y' && tolower(ans[0]) != 'n')) {
+            std::cout << "You have to answer with 'y' or 'n'.\n";
+            valid_ans = false;
+        }
+
+    } while(!valid_ans);
+
+    return tolower(ans[0]) == 'y';
+}

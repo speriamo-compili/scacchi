@@ -18,6 +18,7 @@ Game::Game(bool cc_game) : is_cc_game{cc_game} {
     }
     current_turn = colours[0] == Colour::white;
     n_moves = 0;
+    stalemate_counter = 0;
 }
 
 std::array<Colour, 2> Game::get_random_colours() {
@@ -41,11 +42,21 @@ void Game::alternate_turn() {
     current_turn = !current_turn;
 }
 
-bool Game::is_game_over() {
-    if (n_moves >= MAX_MOVES_CC_GAME) {
-        cout << "The game has reached its maximum number of moves. (" << MAX_MOVES_CC_GAME << ")\n";
-        return true;
+void Game::update_stalemate_counter(std::array<Cell, 2> move) {
+    Piece *piece_moved = board.getPiece(move[1]);
+    bool pawn_moved = piece_moved && (piece_moved->getLetter() == 'P' || piece_moved->getLetter() == 'p');
+    if (board.get_last_piece_captured() || pawn_moved) {
+        stalemate_counter = 0;
+    } else {
+        stalemate_counter++;
     }
+} 
+
+void Game::update_previous_board() {
+    previous_boards[board.to_string()]++;
+}
+
+bool Game::is_game_over() {
     // if only two kings are left, it's impossible to force the checkmate
     if (board.get_pieces_on_board(Colour::white) == 1 && board.get_pieces_on_board(Colour::black) == 1) {
         cout << "It's impossible to force the checkmate with only two kings left.\nThe game ended in a draw.\n";
@@ -63,6 +74,25 @@ bool Game::is_game_over() {
         }
         return true;
     }
+
+    if (stalemate_counter >= FIFTY_MOVES) {
+        cout << "In the last 50 moves, no player has captured a piece or moved a pawn. The game ended in a draw.\n";
+        return true;
+    }
+    
+    if (n_moves >= MAX_MOVES_CC_GAME) {
+        cout << "The game has reached its maximum number of moves. (" << MAX_MOVES_CC_GAME << ")\n";
+        return true;
+    }
+
+    if (previous_boards[board.to_string()] == THREEFOLD_REPETITION && !is_cc_game) {
+        bool draw =  dynamic_cast<Human*>(p1)->ask_for_draw();
+        if (draw) {
+            cout << "The game ended in a draw.\n";
+            return true;
+        }
+    }
+
     return false;
 }
 
@@ -99,6 +129,8 @@ void Game::play() {
 
         log << move[0] << " " << move[1] << "\n";
         n_moves++;
+        update_stalemate_counter(move);
+        update_previous_board();
         alternate_turn();
     } while(!is_game_over());
 

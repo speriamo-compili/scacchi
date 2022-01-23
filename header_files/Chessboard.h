@@ -46,9 +46,9 @@ class Chessboard {
         
         unsigned int get_pieces_on_board(const Colour c) const;
         Cell* get_cell_from_piece_id(unsigned int id, const Colour c) const;
-
-        // TO DELETE
-        void print_vec(Colour c);
+        Piece* get_last_piece_captured();
+        
+        string to_string();
 
     private:
         void move(Cell *start_cell, Cell *end_cell, Piece *piece_to_move);

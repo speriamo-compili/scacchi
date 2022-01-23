@@ -382,15 +382,25 @@ Cell* Chessboard::get_cell_from_piece_id(unsigned int id, const Colour c) const 
     return c == Colour::white ? white_pieces[id] : black_pieces[id];
 }
 
+Piece* Chessboard::get_last_piece_captured() {
+    return last_piece_captured;
+}
 
+string Chessboard::to_string() {
+    string res = "";
+    for (unsigned int r = 0; r < Chessboard::N_ROWS; r++) {
+        for (unsigned int c = 0; c < Chessboard::N_COLS; c++) {
+            Piece* p = getPiece(Cell{r, c});
+            if (p)
+                res += p->getLetter();
+            else    
+                res += " ";
+        }
+    }
+    return res;
+}
 
 ostream& operator<<(ostream& os, const Chessboard& b) {
-    // const char HORIZONTAL_SIDE = char(205);
-    // const char VERTICAL_SIDE = char(186);
-    // const char UP_LEFT_ANGLE = char(201);
-    // const char UP_RIGHT_ANGLE = char(187);
-    // const char DOWN_LEFT_ANGLE = char(200);
-    // const char DOWN_RIGHT_ANGLE = char(188);
     const char HORIZONTAL_SIDE = char(196);
     const char VERTICAL_SIDE = char(179);
     const char UP_LEFT_ANGLE = char(218);
@@ -416,25 +426,4 @@ ostream& operator<<(ostream& os, const Chessboard& b) {
     }
     os << endl;
     return os;
-}
-
-// TO DELETE
-void Chessboard::print_vec(Colour c) {
-    if (c == Colour::white) {
-        cout << "WHITE PIECES\n";
-        for (int i = 0; i < N_PIECES; i++) {
-            Cell *k = white_pieces[i]; 
-            if (k) {
-                cout << i << " -> " << "{" << k->getRow() << "," << k->getCol() << "}\n";
-            }
-        }
-    } else {
-        cout << "BLACK PIECES\n";
-        for (int i = 0; i < N_PIECES; i++) {
-            Cell *k = black_pieces[i]; 
-            if (k) {
-                cout << i << " -> " << "{" << k->getRow() << "," << k->getCol() << "}\n";
-            }
-        }
-    }
 }
