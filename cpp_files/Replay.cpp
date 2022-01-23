@@ -22,10 +22,10 @@ void Replay::end_game() {
         return;
     }
 
-    bool can_move = board.canMove(colour_to_move);
+    bool can_move = board.can_move(colour_to_move);
     if (!can_move) {
         cout << (colour_to_move == Colour::white ? "White" : "Black") << " in ";
-        if (board.isInCheck(colour_to_move)) {
+        if (board.is_in_check(colour_to_move)) {
             cout << "checkmate.\n" << (colour_to_move == Colour::white ? "Black" : "White") << " wins.\n";
         } else {
             cout << "stalemate.\nThe game ended in a draw.\n";

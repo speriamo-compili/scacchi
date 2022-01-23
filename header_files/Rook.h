@@ -4,7 +4,7 @@
 
 class Rook : public Piece {
     private:
-        bool _hasMoved;
+        bool _has_moved;
         
     public:
         const char ROOK_LETTER = 'T';
@@ -12,10 +12,10 @@ class Rook : public Piece {
         Rook(Colour c, unsigned int id);
         ~Rook() {};
 
-        bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
+        bool is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
         ostream& print_piece(ostream& of) const override;
-        char getLetter() const override;
-        bool hasMoved() const;
+        char get_letter() const override;
+        bool has_moved() const;
         void set_has_moved(bool b);
 };
 

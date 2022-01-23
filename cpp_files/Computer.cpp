@@ -28,14 +28,14 @@ std::array<Cell, 2> Computer::get_move() const {
             }
         }
 
-        Piece *piece_to_move = board.getPiece(*start_cell);
+        Piece *piece_to_move = board.get_piece(*start_cell);
         assert(piece_to_move);
 
         for (unsigned int r = 0; r < Chessboard::N_ROWS; r++) {
             for (unsigned int c = 0; c < Chessboard::N_COLS; c++) {
                 Cell *end_cell = new Cell{r,c};
                 
-                bool is_valid_move = piece_to_move->isValidMove(*start_cell, *end_cell, board);
+                bool is_valid_move = piece_to_move->is_valid_move(*start_cell, *end_cell, board);
                 bool is_castling = board.is_castling(start_cell, end_cell, piece_to_move);
                 bool is_en_passant = board.is_en_passant(*start_cell, *end_cell, piece_to_move);
 

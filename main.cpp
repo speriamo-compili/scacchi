@@ -17,10 +17,10 @@ using namespace std;
 // Colour currentTurn;
 
 // bool isGameOver(Colour c) {
-//     bool can_move = board.canMove(c);
+//     bool can_move = board.can_move(c);
 //     if (!can_move) {
 //         cout << (c == Colour::white ? "bianco in" : "nero in");
-//         cout << (board.isInCheck(c) ? " scacco matto" : " patta");
+//         cout << (board.is_in_check(c) ? " scacco matto" : " patta");
 //         return true;
 //     }
 //     return false;
@@ -55,7 +55,7 @@ int main() {
     //     cin >> a >> b;
     //     cout << a << " " << b << "\n\n";
     //     Cell start = Cell(a), end = Cell(b);
-    //     assert(board.getPiece(start)->getColour() == currentTurn);
+    //     assert(board.get_piece(start)->get_colour() == currentTurn);
     //     board.move(start, end);
     //     cout << board << "\n";
     //     alternateTurn();
@@ -79,7 +79,7 @@ int main() {
     //     string s = string(1, 'a'+j) + string(1, '1'+1); 
     //     Cell c{s};
     //     vector<Cell> v;
-    //     Piece *p = b.getPiece(c);
+    //     Piece *p = b.get_piece(c);
         // int g, f;
         // if (i+2 < 8 && j+2 < 8) {
         //     g = i + 2;
@@ -99,7 +99,7 @@ int main() {
         //     for (unsigned int m = 0; m < 8; m++) {
         //         string t = string(1, 'a'+r) + string(1, '1'+m);
         //         Cell ce{t};
-        //         if (p->isValidMove(c, ce, b)) {
+        //         if (p->is_valid_move(c, ce, b)) {
         //             v.push_back(ce);
         //         }
         //     }

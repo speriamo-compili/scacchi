@@ -11,16 +11,16 @@ class Piece {
         Piece(Colour c, unsigned int id);
         virtual ~Piece() {};
 
-        virtual bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const = 0;
+        virtual bool is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) const = 0;
         virtual ostream& print_piece(ostream& of) const = 0;
 
-        Colour getColour() const;
-        unsigned int getId() const;
-        virtual char getLetter() const = 0;
-        bool areCellsValid(Cell& start_cell, Cell& end_cell, Chessboard& board) const;
+        Colour get_colour() const;
+        unsigned int get_id() const;
+        virtual char get_letter() const = 0;
+        bool are_cells_valid(Cell& start_cell, Cell& end_cell, Chessboard& board) const;
 
     private:
-        Colour pieceColour;
+        Colour piece_colour;
         unsigned int _id;
 };
 

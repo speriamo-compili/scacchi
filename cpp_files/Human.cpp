@@ -17,22 +17,22 @@ std::array<Cell, 2> Human::get_move() const {
         } else {
             try {
                 start_cell = Cell{start};
-            } catch (Cell::InvalidCell) {
+            } catch (Cell::invalid_cell) {
                 cout << "The first cell is invalid.\n";
                 valid_cells = false;
             }
 
             try {
                 end_cell = Cell{end};
-            } catch (Cell::InvalidCell) {
+            } catch (Cell::invalid_cell) {
                 cout << "The second cell is invalid.\n";
                 valid_cells = false;
             }
 
             if (valid_cells) {
                 // check if the start cell contains a piece of this player 
-                Piece *piece_to_move = board.getPiece(start_cell);
-                if (!piece_to_move || piece_to_move->getColour() != this->get_colour()) {
+                Piece *piece_to_move = board.get_piece(start_cell);
+                if (!piece_to_move || piece_to_move->get_colour() != this->get_colour()) {
                     cout << "The start cell doesn't contain a " << this->get_colour() << " piece.\n";
                     valid_cells = false;
                 }

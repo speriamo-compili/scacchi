@@ -8,9 +8,9 @@ enum class Colour : short;
 
 class Chessboard {
     public:
-        class InvalidMove{};
-        class InvalidState{};
-        class InvalidMove_KingOnCheck{};
+        class invalid_move{};
+        class invalid_state{};
+        class invalid_move_king_on_check{};
 
         static constexpr unsigned int N_ROWS = 8;
         static constexpr unsigned int N_COLS = 8;
@@ -29,16 +29,16 @@ class Chessboard {
         Chessboard();
         ~Chessboard();
 
-        Piece* getPiece(const Cell& c) const;
-        void setPiece(const Cell& cell, Piece* p);
+        Piece* get_piece(const Cell& c) const;
+        void set_piece(const Cell& cell, Piece* p);
 
         void move(Cell& start_cell, Cell& end_cell);
         void capture_piece();
         void set_has_moved(Piece *piece_moved);
         void undo_move(Cell *start_cell, Cell *end_cell, Piece *piece_moved);
-        bool isInCheck(const Colour c);
-        bool canMove(const Colour c);
-        void checkPromotion(Cell& end_cell);
+        bool is_in_check(const Colour c);
+        bool can_move(const Colour c);
+        void check_promotion(Cell& end_cell);
         void set_possible_en_passant(Cell& start_cell, Cell& end_cell, Piece *piece_moved);
         bool is_en_passant(Cell& start_cell, Cell& end_cell, Piece *piece_to_move);
         void undo_en_passant(Cell *start_cell, Cell *end_cell, Cell& cell_pawn_to_capture, Piece *piece_moved);
