@@ -14,7 +14,7 @@ class Knight : public Piece {
 
         Knight(Colour c, unsigned int id);
         ~Knight() {};
-
+        //check if the move from start cell to end cell is valid
         bool is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
         std::ostream& print_piece(std::ostream& of) const override;
         char get_letter() const override;

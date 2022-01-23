@@ -13,7 +13,7 @@
 class ReplayGame {
     private:
         Chessboard board;
-        std::string input_file_name, output_file_name;
+        std::string input_file_name, output_file_name; //input and output file
         std::ifstream input_file;
         std::ofstream output_file;
         bool print_on_file;

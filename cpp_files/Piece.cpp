@@ -26,7 +26,7 @@ bool Piece::are_cells_valid(Cell& start_cell, Cell& end_cell, Chessboard& board)
     Piece *piece_end_cell = board.get_piece(end_cell);
     return !piece_end_cell || piece_to_move->get_colour() != piece_end_cell->get_colour();
 }
-
+//overload << operator
 std::ostream& operator<<(std::ostream& of, const Piece& p) {
     return p.print_piece(of); 
 }

@@ -6,7 +6,7 @@
 #include "../header_files/Knight.h"
 
 Knight::Knight(Colour c, unsigned int id) : Piece(c, id) {};
-
+//check if king can move from start cell to end cell
 bool Knight::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
    if (!are_cells_valid(start_cell, end_cell, board)) {
       return false;

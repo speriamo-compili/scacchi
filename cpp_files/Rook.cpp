@@ -6,7 +6,7 @@
 #include "../header_files/Rook.h"
 
 Rook::Rook(Colour c, unsigned int id) : Piece(c, id), _has_moved{false} {};
-
+//it checks if the rook can move from start cell to end cell
 bool Rook::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) const {
    if (!are_cells_valid(start_cell, end_cell, board)) {
       return false;
@@ -32,13 +32,13 @@ bool Rook::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) co
    }
    return false;
 }
-
+//it prints the piece
 std::ostream& Rook::print_piece(std::ostream& of) const {
    char c = get_colour() == Colour::white ? tolower(ROOK_LETTER) : toupper(ROOK_LETTER);
    of << c; 
    return of;
 }
-
+//it returns letter of the rook
 char Rook::get_letter() const {
    return get_colour() == Colour::white ? tolower(ROOK_LETTER) : toupper(ROOK_LETTER);
 }

@@ -19,12 +19,12 @@ class Game {
         bool current_turn; // true -> p1's turn, false -> p2's turn
         bool is_cc_game; 
         unsigned int n_moves;
-        unsigned int stalemate_counter;
+        unsigned int stalemate_counter; //it counts the stalemate
         std::ofstream log;
         std::map<std::string, int> previous_boards;
     
-        void alternate_turn();
-        bool is_game_over();
+        void alternate_turn(); //when is pc turn or player turn
+        bool is_game_over(); //when the game finishes
         std::array<Colour, 2> get_random_colours();
         void print_log(const std::string &str);
         void update_stalemate_counter(std::array<Cell, 2> move);

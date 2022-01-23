@@ -45,7 +45,7 @@ std::ostream& Pawn::print_piece(std::ostream& of) const {
    of << c; 
    return of;
 }
-
+//it return the letter of the pawn
 char Pawn::get_letter() const {
    return get_colour() == Colour::white ? tolower(PAWN_LETTER) : toupper(PAWN_LETTER);
 }
@@ -53,7 +53,7 @@ char Pawn::get_letter() const {
 bool Pawn::has_moved() const {
    return _has_moved;
 }
-
+//set new has moved
 void Pawn::set_has_moved(bool b) {
    _has_moved = b;
 }
