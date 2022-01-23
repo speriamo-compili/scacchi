@@ -7,7 +7,9 @@
 #define HUMAN_H
 
 #include "Player.h"
-
+/*
+    class that implements the human player
+*/
 class Human : public Player {
     public:
         Human(const Colour c, Chessboard &board);
