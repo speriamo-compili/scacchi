@@ -65,6 +65,19 @@ Chessboard::~Chessboard() {
             board[r][c] = nullptr;
         }
     }
+
+    delete last_piece_captured;
+    last_piece_captured = nullptr;
+
+    for (unsigned int i = 0; i < N_PIECES; i++) {
+        delete white_pieces[i];
+        white_pieces[i] = nullptr;
+        delete black_pieces[i];
+        black_pieces[i] = nullptr;
+    }
+
+    delete en_passant_cell;
+    en_passant_cell = nullptr;
 }
 
 Piece* Chessboard::get_piece(const Cell& c) const {
