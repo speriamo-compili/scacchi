@@ -7,7 +7,6 @@
 #define CELL_H
 
 #include <iostream>
-using namespace std;
 
 class Cell {
     private:
@@ -26,7 +25,7 @@ class Cell {
 
         Cell();
         Cell(unsigned int r, unsigned int c);
-        Cell(string s);
+        Cell(std::string s);
         unsigned int get_row() const;
         unsigned int get_col() const;
         ~Cell() {};
@@ -34,5 +33,6 @@ class Cell {
 
 bool operator==(const Cell &a, const Cell &b);
 bool operator!=(const Cell &a, const Cell &b);
-ostream& operator<< (ostream& os, Cell& c);
+std::ostream& operator<< (std::ostream& os, Cell& c);
+
 #endif

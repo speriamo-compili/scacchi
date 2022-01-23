@@ -40,7 +40,7 @@ bool Pawn::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) co
    return false;
 }
 
-ostream& Pawn::print_piece(ostream& of) const {
+std::ostream& Pawn::print_piece(std::ostream& of) const {
    char c = get_colour() == Colour::white ? tolower(PAWN_LETTER) : toupper(PAWN_LETTER);
    of << c; 
    return of;

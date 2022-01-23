@@ -40,7 +40,7 @@ std::array<Colour, 2> Game::get_random_colours() {
     return res;
 }
 
-void Game::print_log(const string &str) {
+void Game::print_log(const std::string &str) {
     log << str;
 }
 
@@ -65,7 +65,7 @@ void Game::update_previous_board() {
 bool Game::is_game_over() {
     // if only two kings are left, it's impossible to force the checkmate
     if (board.get_pieces_on_board(Colour::white) == 1 && board.get_pieces_on_board(Colour::black) == 1) {
-        cout << "It's impossible to force the checkmate with only two kings left.\nThe game ended in a draw.\n";
+        std::cout << "It's impossible to force the checkmate with only two kings left.\nThe game ended in a draw.\n";
         log << "D rvsR";
         return true;
     }
@@ -73,25 +73,25 @@ bool Game::is_game_over() {
     Colour current_colour = current_turn ? p1->get_colour() : p2->get_colour();
     bool can_move = board.can_move(current_colour);
     if (!can_move) {
-        cout << (current_colour == Colour::white ? "White" : "Black") << " in ";
+        std::cout << (current_colour == Colour::white ? "White" : "Black") << " in ";
         if (board.is_in_check(current_colour)) {
-            cout << "checkmate.\n" << (current_colour == Colour::white ? "Black" : "White") << " wins.\n";
+            std::cout << "checkmate.\n" << (current_colour == Colour::white ? "Black" : "White") << " wins.\n";
             log << (current_colour == Colour::white ? "B W" : "W B") << "cm";
         } else {
-            cout << "stalemate.\nThe game ended in a draw.\n";
+            std::cout << "stalemate.\nThe game ended in a draw.\n";
             log << "D " << (current_colour == Colour::white ? "W" : "B") << "sm";
         }
         return true;
     }
 
     if (stalemate_counter >= FIFTY_MOVES) {
-        cout << "In the last 50 moves, no player has captured a piece or moved a pawn. The game ended in a draw.\n";
+        std::cout << "In the last 50 moves, no player has captured a piece or moved a pawn.\nThe game ended in a draw.\n";
         log << "D 50m";
         return true;
     }
     
     if (n_moves >= MAX_MOVES_CC_GAME) {
-        cout << "The game has reached its maximum number of moves. (" << MAX_MOVES_CC_GAME << ")\n";
+        std::cout << "The game has reached its maximum number of moves. (" << MAX_MOVES_CC_GAME << ")\n";
         log << "D max";
         return true;
     }
@@ -99,14 +99,14 @@ bool Game::is_game_over() {
     if (previous_boards[board.to_string()] == THREEFOLD_REPETITION && !is_cc_game) {
         bool draw =  dynamic_cast<Human*>(p1)->ask_for_draw();
         if (draw) {
-            cout << "The game ended in a draw.\n";
+            std::cout << "The game ended in a draw.\n";
             log << "D 3r";
             return true;
         }
     }
 
     if (previous_boards[board.to_string()] == FIVEFOLD_REPETITION && !is_cc_game) {
-        cout << "The same board configuration occurred 5 times. The game ended in a draw.\n";
+        std::cout << "The same board configuration occurred 5 times.\nThe game ended in a draw.\n";
         log << "D 5r";
         return true;
     }
@@ -133,12 +133,12 @@ void Game::play() {
                 valid_move = true;
             } catch(const Chessboard::invalid_move& e) {
                 if (!is_cc_game && current_turn) {
-                    cout << "Invalid move.\n";
+                    std::cout << "Invalid move.\n";
                 }
                 valid_move = false;
             } catch(const Chessboard::invalid_move_king_on_check& e) {
                 if (!is_cc_game && current_turn) {
-                    cout << "Invalid move: after this move, your king would be in check.\n";
+                    std::cout << "Invalid move: after this move, your king would be in check.\n";
                 }
                 valid_move = false;
             }
@@ -148,7 +148,7 @@ void Game::play() {
         log << move[0] << " " << move[1] << "\n";
         
         if (!is_cc_game && !current_turn) {
-            cout << "\nThe computer's move is: " << move[0] << " " << move[1] << "\n\n";
+            std::cout << "\nThe computer's move is: " << move[0] << " " << move[1] << "\n\n";
         }
 
         n_moves++;

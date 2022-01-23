@@ -20,13 +20,13 @@ class Game {
         bool is_cc_game; 
         unsigned int n_moves;
         unsigned int stalemate_counter;
-        ofstream log;
-        map<string, int> previous_boards;
+        std::ofstream log;
+        std::map<std::string, int> previous_boards;
     
         void alternate_turn();
         bool is_game_over();
         std::array<Colour, 2> get_random_colours();
-        void print_log(const string &str);
+        void print_log(const std::string &str);
         void update_stalemate_counter(std::array<Cell, 2> move);
         void update_previous_board();
 
@@ -36,7 +36,7 @@ class Game {
         static constexpr unsigned int THREEFOLD_REPETITION = 3;
         static constexpr unsigned int FIVEFOLD_REPETITION = 5;
 
-        const string LOG_FILE = "log.txt";
+        const std::string LOG_FILE = "log.txt";
 
         Game();
         Game(bool is_cc_game);

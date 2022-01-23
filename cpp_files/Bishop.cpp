@@ -15,8 +15,8 @@ bool Bishop::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) 
    unsigned int start_row = start_cell.get_row(), start_col = start_cell.get_col();
    unsigned int end_row = end_cell.get_row(), end_col = end_cell.get_col();
    
-   unsigned int min_row = min(start_row, end_row), max_row = max(start_row, end_row);
-   unsigned int min_col = min(start_col, end_col), max_col = max(start_col, end_col);
+   unsigned int min_row = std::min(start_row, end_row), max_row = std::max(start_row, end_row);
+   unsigned int min_col = std::min(start_col, end_col), max_col = std::max(start_col, end_col);
 
    if (start_row - start_col == end_row - end_col) {
       for (unsigned int r = min_row + 1, c = min_col + 1; r < max_row && c < max_col; r++, c++) {
@@ -37,7 +37,7 @@ bool Bishop::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) 
    return false;
 }
 
-ostream& Bishop::print_piece(ostream& of) const {
+std::ostream& Bishop::print_piece(std::ostream& of) const {
    char c = get_colour() == Colour::white ? tolower(BISHOP_LETTER) : toupper(BISHOP_LETTER);
    of << c; 
    return of;

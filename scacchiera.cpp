@@ -8,7 +8,7 @@
 #include <iostream>
 
 void print_error() {
-    cout << "You have to pass one command line argument! (pc or cc)\n" 
+    std::cout << "You have to pass one command line argument! (pc or cc)\n" 
          << "- pc = player vs computer\n" 
          << "- cc = computer vs computer\n";
 }
@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
         print_error();
         return 0;
     }
-    string arg = argv[1];
+    std::string arg = argv[1];
     if (arg != "pc" && arg != "cc") {
         print_error();
         return 0;

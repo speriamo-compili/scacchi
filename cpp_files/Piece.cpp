@@ -27,11 +27,11 @@ bool Piece::are_cells_valid(Cell& start_cell, Cell& end_cell, Chessboard& board)
     return !piece_end_cell || piece_to_move->get_colour() != piece_end_cell->get_colour();
 }
 
-ostream& operator<<(ostream& of, const Piece& p) {
+std::ostream& operator<<(std::ostream& of, const Piece& p) {
     return p.print_piece(of); 
 }
 
-ostream& operator<<(ostream& of, const Colour& c) {
+std::ostream& operator<<(std::ostream& of, const Colour& c) {
     of << (c == Colour::white ? "white" : "black");
     return of;
 }

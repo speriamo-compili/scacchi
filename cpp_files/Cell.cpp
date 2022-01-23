@@ -19,7 +19,7 @@ Cell::Cell(unsigned int r, unsigned int c) {
 }
 
 // check if s represent the coordinate of chessboard's cell
-Cell::Cell(string s) {
+Cell::Cell(std::string s) {
     if (s.size() != Cell::LENGTH_STRING_OF_A_CELL) {
         throw invalid_cell();
     }
@@ -67,7 +67,7 @@ bool operator!=(const Cell &a, const Cell &b) {
     return a.get_row() != b.get_row() || a.get_col() != b.get_col();
 }
 
-ostream& operator<< (ostream& os, Cell& c) {
+std::ostream& operator<< (std::ostream& os, Cell& c) {
     os << char('A' + c.get_col()) << c.get_row() + 1;
     return os;
 }

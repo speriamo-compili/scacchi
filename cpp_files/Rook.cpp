@@ -16,14 +16,14 @@ bool Rook::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) co
    unsigned int end_row = end_cell.get_row(), end_col = end_cell.get_col();
 
    if (start_row == end_row) {   
-      for (unsigned int c = min(start_col, end_col) + 1; c < max(start_col, end_col); c++) {
+      for (unsigned int c = std::min(start_col, end_col) + 1; c < std::max(start_col, end_col); c++) {
          if (board.get_piece(Cell{start_row, c})) {
             return false;
          }
       }
       return true;
    } else if (start_col == end_col) {
-      for (unsigned int r = min(start_row, end_row) + 1; r < max(start_row, end_row); r++) {
+      for (unsigned int r = std::min(start_row, end_row) + 1; r < std::max(start_row, end_row); r++) {
          if (board.get_piece(Cell{r, start_col})) {
             return false;
          }
@@ -33,7 +33,7 @@ bool Rook::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) co
    return false;
 }
 
-ostream& Rook::print_piece(ostream& of) const {
+std::ostream& Rook::print_piece(std::ostream& of) const {
    char c = get_colour() == Colour::white ? tolower(ROOK_LETTER) : toupper(ROOK_LETTER);
    of << c; 
    return of;

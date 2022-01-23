@@ -18,7 +18,7 @@ bool Knight::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) 
    return (delta_row == 1 && delta_col == 2) || (delta_row == 2 && delta_col == 1);
 }
 
-ostream& Knight::print_piece(ostream& of) const {
+std::ostream& Knight::print_piece(std::ostream& of) const {
    char c = get_colour() == Colour::white ? tolower(KNIGHT_LETTER) : toupper(KNIGHT_LETTER);
    of << c; 
    return of;

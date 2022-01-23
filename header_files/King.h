@@ -19,7 +19,7 @@ class King : public Piece {
         ~King() {};
 
         bool is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
-        ostream& print_piece(ostream& of) const override;
+        std::ostream& print_piece(std::ostream& of) const override;
         char get_letter() const override;
         bool has_moved() const;
         void set_has_moved(bool b);

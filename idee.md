@@ -144,7 +144,7 @@ Bisogna contrallare che tale mossa sia corretta.
 - controllare reference sui costruttori
 - questione Colour (enum?) - DONE
 - controlla directory progetto c++
-- finire metodo `print_table` passare `ostream` e inserire indici - DONE
+- finire metodo `print_table` passare `std::ostream` e inserire indici - DONE
 - leggere docs cmake
 - introdurre COSTANTI?
 
@@ -289,6 +289,6 @@ Chessboard, Cell (68), Computer (53), Game (150), Human (72), Piece (32), Player
 scacchiera (24), replay (22), cmakelist (114)
 
 Lorenzo: Chessboard (435), cmakelist (114), replay (22), scacchiera (24) -> tot = 595
-Samuel: Pawn (54), Rook (47), Knight (24), Game (150), Replay (80), Player (7) -> tot = 362 
+Samuel: Pawn (54), Rook (47), Knight (24), Game (150), ReplayGame (80), Player (7) -> tot = 362 
 Simone: Queen (57), Bishop (43), King (35), Cell (68), Human (72), Computer (55), Piece (32) -> tot = 362
  

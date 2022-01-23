@@ -18,6 +18,6 @@ class Human : public Player {
         Chessboard &board;
 };
 
-string to_lower(const string &s);
+std::string to_lower(const std::string &s);
 
 #endif

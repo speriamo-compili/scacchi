@@ -392,8 +392,8 @@ Piece* Chessboard::get_last_piece_captured() {
     return last_piece_captured;
 }
 
-string Chessboard::to_string() {
-    string res = "";
+std::string Chessboard::to_string() {
+    std::string res = "";
     for (unsigned int r = 0; r < Chessboard::N_ROWS; r++) {
         for (unsigned int c = 0; c < Chessboard::N_COLS; c++) {
             Piece* p = get_piece(Cell{r, c});
@@ -406,15 +406,15 @@ string Chessboard::to_string() {
     return res;
 }
 
-ostream& operator<<(ostream& os, const Chessboard& b) {
-    const string HORIZONTAL_SIDE = "─";
-    const string VERTICAL_SIDE = "│";
-    const string UP_LEFT_ANGLE = "┌";
-    const string UP_RIGHT_ANGLE = "┐";
-    const string DOWN_LEFT_ANGLE = "└";
-    const string DOWN_RIGHT_ANGLE = "┘";
+std::ostream& operator<<(std::ostream& os, const Chessboard& b) {
+    const std::string HORIZONTAL_SIDE = "─";
+    const std::string VERTICAL_SIDE = "│";
+    const std::string UP_LEFT_ANGLE = "┌";
+    const std::string UP_RIGHT_ANGLE = "┐";
+    const std::string DOWN_LEFT_ANGLE = "└";
+    const std::string DOWN_RIGHT_ANGLE = "┘";
 
-    os << "  " << UP_LEFT_ANGLE << "────────" << UP_RIGHT_ANGLE << endl;
+    os << "  " << UP_LEFT_ANGLE << "────────" << UP_RIGHT_ANGLE << std::endl;
     for (unsigned int r = Chessboard::N_ROWS; r > 0; r--) {
         os << r << " " << VERTICAL_SIDE;
         for (unsigned int c = 0; c < Chessboard::N_COLS; c++) {
@@ -424,12 +424,12 @@ ostream& operator<<(ostream& os, const Chessboard& b) {
             else    
                 os << " ";
         }
-        os << VERTICAL_SIDE << endl;
+        os << VERTICAL_SIDE << std::endl;
     }
-    os << "  " << DOWN_LEFT_ANGLE << "────────" << DOWN_RIGHT_ANGLE << endl << "   ";
+    os << "  " << DOWN_LEFT_ANGLE << "────────" << DOWN_RIGHT_ANGLE << std::endl << "   ";
     for (unsigned int i = 0; i < Chessboard::N_COLS; i++) {
         os << char('A' + i);
     }
-    os << endl;
+    os << std::endl;
     return os;
 }

@@ -19,7 +19,7 @@ class Piece {
         virtual ~Piece() {};
 
         virtual bool is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) const = 0;
-        virtual ostream& print_piece(ostream& of) const = 0;
+        virtual std::ostream& print_piece(std::ostream& of) const = 0;
 
         Colour get_colour() const;
         unsigned int get_id() const;
@@ -31,7 +31,7 @@ class Piece {
         unsigned int _id;
 };
 
-ostream& operator<<(ostream& of, const Piece& p);
-ostream& operator<<(ostream& of, const Colour& c);
+std::ostream& operator<<(std::ostream& of, const Piece& p);
+std::ostream& operator<<(std::ostream& of, const Colour& c);
 
 #endif

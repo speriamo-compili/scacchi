@@ -21,7 +21,7 @@ bool King::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) co
    return !(delta_row == 0 && delta_col == 0) && valid_row && valid_col;
 }
 
-ostream& King::print_piece(ostream& of) const {
+std::ostream& King::print_piece(std::ostream& of) const {
    char c = get_colour() == Colour::white ? tolower(KING_LETTER) : toupper(KING_LETTER);
    of << c; 
    return of;

@@ -15,18 +15,18 @@ bool Queen::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) c
    unsigned int start_row = start_cell.get_row(), start_col = start_cell.get_col();
    unsigned int end_row = end_cell.get_row(), end_col = end_cell.get_col();
 
-   unsigned int min_row = min(start_row, end_row), max_row = max(start_row, end_row);
-   unsigned int min_col = min(start_col, end_col), max_col = max(start_col, end_col);
+   unsigned int min_row = std::min(start_row, end_row), max_row = std::max(start_row, end_row);
+   unsigned int min_col = std::min(start_col, end_col), max_col = std::max(start_col, end_col);
    
    if (start_row == end_row) {   
-      for (unsigned int c = min(start_col, end_col) + 1; c < max(start_col, end_col); c++) {
+      for (unsigned int c = std::min(start_col, end_col) + 1; c < std::max(start_col, end_col); c++) {
          if (board.get_piece(Cell{start_row, c})) {
             return false;
          }
       }
       return true;
    } else if (start_col == end_col) {
-      for (unsigned int r = min(start_row, end_row) + 1; r < max(start_row, end_row); r++) {
+      for (unsigned int r = std::min(start_row, end_row) + 1; r < std::max(start_row, end_row); r++) {
          if (board.get_piece(Cell{r, start_col})) {
             return false;
          }
@@ -51,7 +51,7 @@ bool Queen::is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) c
    return false;
 }
 
-ostream& Queen::print_piece(ostream& of) const {
+std::ostream& Queen::print_piece(std::ostream& of) const {
    char c = get_colour() == Colour::white ? tolower(QUEEN_LETTER) : toupper(QUEEN_LETTER);
    of << c; 
    return of;

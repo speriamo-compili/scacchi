@@ -74,9 +74,9 @@ add_library(Game
     cpp_files/Game.cpp
 )
 
-add_library(Replay_class
-    header_files/Replay.h
-    cpp_files/Replay.cpp
+add_library(ReplayGame_class
+    header_files/ReplayGame.h
+    cpp_files/ReplayGame.cpp
 )
 
 add_executable(scacchiera
@@ -104,7 +104,7 @@ add_executable(replay
 )
 
 target_link_libraries(replay
-    Replay_class
+    ReplayGame_class
     Chessboard
     Cell
     King

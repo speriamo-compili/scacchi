@@ -55,16 +55,19 @@ class Chessboard {
         Cell* get_cell_from_piece_id(unsigned int id, const Colour c) const;
         Piece* get_last_piece_captured();
         
-        string to_string();
+        std::string to_string();
+
+        // disable assignment operator
+        Chessboard &operator=(const Chessboard &) = delete;
 
     private:
         void move(Cell *start_cell, Cell *end_cell, Piece *piece_to_move);
         
         Piece *board[N_ROWS][N_COLS], *last_piece_captured;
-        vector<Cell*> white_pieces, black_pieces;
+        std::vector<Cell*> white_pieces, black_pieces;
         unsigned int white_pieces_on_board, black_pieces_on_board;  
         Cell *en_passant_cell; // cell where the pawn has to go for en-passant
 };
 
-ostream& operator<<(ostream& os, const Chessboard& board);
+std::ostream& operator<<(std::ostream& os, const Chessboard& board);
 #endif
