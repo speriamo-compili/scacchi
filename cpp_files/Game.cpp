@@ -43,8 +43,8 @@ void Game::alternate_turn() {
 }
 
 void Game::update_stalemate_counter(std::array<Cell, 2> move) {
-    Piece *piece_moved = board.getPiece(move[1]);
-    bool pawn_moved = piece_moved && (piece_moved->getLetter() == 'P' || piece_moved->getLetter() == 'p');
+    Piece *piece_moved = board.get_piece(move[1]);
+    bool pawn_moved = piece_moved && (piece_moved->get_letter() == 'P' || piece_moved->get_letter() == 'p');
     if (board.get_last_piece_captured() || pawn_moved) {
         stalemate_counter = 0;
     } else {
@@ -64,10 +64,10 @@ bool Game::is_game_over() {
     }
 
     Colour current_colour = current_turn ? p1->get_colour() : p2->get_colour();
-    bool can_move = board.canMove(current_colour);
+    bool can_move = board.can_move(current_colour);
     if (!can_move) {
         cout << (current_colour == Colour::white ? "White" : "Black") << " in ";
-        if (board.isInCheck(current_colour)) {
+        if (board.is_in_check(current_colour)) {
             cout << "checkmate.\n" << (current_colour == Colour::white ? "Black" : "White") << " wins.\n";
         } else {
             cout << "stalemate.\nThe game ended in a draw.\n";
@@ -113,12 +113,12 @@ void Game::play() {
             try {
                 board.move(move[0], move[1]);
                 valid_move = true;
-            } catch(const Chessboard::InvalidMove& e) {
+            } catch(const Chessboard::invalid_move& e) {
                 if (!is_cc_game && current_turn) {
                     cout << "Invalid move.\n";
                 }
                 valid_move = false;
-            } catch(const Chessboard::InvalidMove_KingOnCheck& e) {
+            } catch(const Chessboard::invalid_move_king_on_check& e) {
                 if (!is_cc_game && current_turn) {
                     cout << "Invalid move: after this move, your king would be in check.\n";
                 }

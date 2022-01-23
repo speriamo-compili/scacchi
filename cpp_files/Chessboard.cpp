@@ -61,96 +61,96 @@ Chessboard::~Chessboard() {
     }
 }
 
-Piece* Chessboard::getPiece(const Cell& c) const {
-    return board[c.getRow()][c.getCol()];
+Piece* Chessboard::get_piece(const Cell& c) const {
+    return board[c.get_row()][c.get_col()];
 }
 
-void Chessboard::setPiece(const Cell& c, Piece* p) {
-    board[c.getRow()][c.getCol()] = p;
+void Chessboard::set_piece(const Cell& c, Piece* p) {
+    board[c.get_row()][c.get_col()] = p;
 }
 
 void Chessboard::move(Cell& start_cell, Cell& end_cell) {
-    Cell *start_cell_pointer = new Cell{start_cell.getRow(), start_cell.getCol()}; 
-    Cell *end_cell_pointer = new Cell{end_cell.getRow(), end_cell.getCol()}; 
-    Piece *piece_to_move = getPiece(start_cell); 
+    Cell *start_cell_pointer = new Cell{start_cell.get_row(), start_cell.get_col()}; 
+    Cell *end_cell_pointer = new Cell{end_cell.get_row(), end_cell.get_col()}; 
+    Piece *piece_to_move = get_piece(start_cell); 
 
-    bool canMove = piece_to_move->isValidMove(start_cell, end_cell, *this);
+    bool can_move = piece_to_move->is_valid_move(start_cell, end_cell, *this);
     bool en_passant = is_en_passant(start_cell, end_cell, piece_to_move);
     bool castling = is_castling(start_cell_pointer, end_cell_pointer, piece_to_move);
 
-    if (canMove) {
+    if (can_move) {
         move(start_cell_pointer, end_cell_pointer, piece_to_move);
 
-        if (isInCheck(piece_to_move->getColour())) {
+        if (is_in_check(piece_to_move->get_colour())) {
             // the move can't be done
             undo_move(start_cell_pointer, end_cell_pointer, piece_to_move);
-            throw InvalidMove_KingOnCheck();
+            throw invalid_move_king_on_check();
         }
 
         en_passant_cell = nullptr;
         set_possible_en_passant(start_cell, end_cell, piece_to_move);
-        checkPromotion(end_cell);
+        check_promotion(end_cell);
 
     } else if (en_passant) {
         move(start_cell_pointer, end_cell_pointer, piece_to_move);
-        Cell cell_pawn_to_capture = Cell{end_cell.getRow() + (piece_to_move->getColour() == Colour::white ? -1 : 1), end_cell.getCol()};
-        last_piece_captured = getPiece(cell_pawn_to_capture);
-        setPiece(cell_pawn_to_capture, nullptr); 
+        Cell cell_pawn_to_capture = Cell{end_cell.get_row() + (piece_to_move->get_colour() == Colour::white ? -1 : 1), end_cell.get_col()};
+        last_piece_captured = get_piece(cell_pawn_to_capture);
+        set_piece(cell_pawn_to_capture, nullptr); 
         capture_piece();
         en_passant_cell = nullptr;
 
-        if (isInCheck(piece_to_move->getColour())) {
+        if (is_in_check(piece_to_move->get_colour())) {
             // the move can't be done - undo_en_passant
             undo_en_passant(start_cell_pointer, end_cell_pointer, cell_pawn_to_capture, piece_to_move);
-            throw InvalidMove_KingOnCheck();
+            throw invalid_move_king_on_check();
         }
 
     } else if (castling) {
-        int delta_col = start_cell.getCol() - end_cell.getCol();
+        int delta_col = start_cell.get_col() - end_cell.get_col();
         move(start_cell_pointer, end_cell_pointer, piece_to_move);
         Cell *start_cell_rook, *end_cell_rook;
         if (delta_col == -2) {
-            start_cell_rook = new Cell{start_cell.getRow(), start_cell.getCol() + 3};
-            end_cell_rook = new Cell{end_cell.getRow(), end_cell.getCol() - 1};
+            start_cell_rook = new Cell{start_cell.get_row(), start_cell.get_col() + 3};
+            end_cell_rook = new Cell{end_cell.get_row(), end_cell.get_col() - 1};
         } else if (delta_col == 2) {
-            start_cell_rook = new Cell{start_cell.getRow(), start_cell.getCol() - 4};
-            end_cell_rook = new Cell{end_cell.getRow(), end_cell.getCol() + 1};
+            start_cell_rook = new Cell{start_cell.get_row(), start_cell.get_col() - 4};
+            end_cell_rook = new Cell{end_cell.get_row(), end_cell.get_col() + 1};
         }
-        Piece *rook = getPiece(*start_cell_rook);
+        Piece *rook = get_piece(*start_cell_rook);
         move(start_cell_rook, end_cell_rook, rook);
     } else {
-        throw InvalidMove();
+        throw invalid_move();
     }
 
     set_has_moved(piece_to_move);
 }
 
 void Chessboard::capture_piece() {
-    if (last_piece_captured && last_piece_captured->getColour() == Colour::white) {
-        white_pieces[last_piece_captured->getId()] = nullptr;
+    if (last_piece_captured && last_piece_captured->get_colour() == Colour::white) {
+        white_pieces[last_piece_captured->get_id()] = nullptr;
         white_pieces_on_board--;
     } else if (last_piece_captured) {
-        black_pieces[last_piece_captured->getId()] = nullptr;
+        black_pieces[last_piece_captured->get_id()] = nullptr;
         black_pieces_on_board--;
     }
 }
 
 void Chessboard::move(Cell *start_cell, Cell *end_cell, Piece *piece_to_move) {
-    last_piece_captured = getPiece(*end_cell);
-    setPiece(*end_cell, piece_to_move);
-    setPiece(*start_cell, nullptr);
+    last_piece_captured = get_piece(*end_cell);
+    set_piece(*end_cell, piece_to_move);
+    set_piece(*start_cell, nullptr);
     
-    if (piece_to_move->getColour() == Colour::white) {
-        white_pieces[piece_to_move->getId()] = end_cell;
+    if (piece_to_move->get_colour() == Colour::white) {
+        white_pieces[piece_to_move->get_id()] = end_cell;
     } else {
-        black_pieces[piece_to_move->getId()] = end_cell;
+        black_pieces[piece_to_move->get_id()] = end_cell;
     }
     
     capture_piece();
 }
 
 void Chessboard::set_has_moved(Piece *piece_moved) {
-    const char piece_letter = piece_moved->getLetter();
+    const char piece_letter = piece_moved->get_letter();
 
     if (piece_letter == 'p' || piece_letter == 'P') dynamic_cast<Pawn*>(piece_moved)->set_has_moved(true); 
     if (piece_letter == 'r' || piece_letter == 'R') dynamic_cast<King*>(piece_moved)->set_has_moved(true); 
@@ -158,24 +158,24 @@ void Chessboard::set_has_moved(Piece *piece_moved) {
 }
 
 void Chessboard::undo_move(Cell *start_cell, Cell *end_cell, Piece *piece_moved) {
-    setPiece(*start_cell, piece_moved);
-    setPiece(*end_cell, last_piece_captured);
-    if (piece_moved->getColour() == Colour::white) {
-        white_pieces[piece_moved->getId()] = start_cell;
+    set_piece(*start_cell, piece_moved);
+    set_piece(*end_cell, last_piece_captured);
+    if (piece_moved->get_colour() == Colour::white) {
+        white_pieces[piece_moved->get_id()] = start_cell;
     } else {
-        black_pieces[piece_moved->getId()] = start_cell;
+        black_pieces[piece_moved->get_id()] = start_cell;
     }
 
-    if (last_piece_captured && last_piece_captured->getColour() == Colour::white) {
-        white_pieces[last_piece_captured->getId()] = end_cell;
+    if (last_piece_captured && last_piece_captured->get_colour() == Colour::white) {
+        white_pieces[last_piece_captured->get_id()] = end_cell;
         white_pieces_on_board++;
     } else if (last_piece_captured){
-        black_pieces[last_piece_captured->getId()] = end_cell;
+        black_pieces[last_piece_captured->get_id()] = end_cell;
         black_pieces_on_board++;
     }
 }
 
-bool Chessboard::isInCheck(const Colour c) {
+bool Chessboard::is_in_check(const Colour c) {
     // check if the king of colour c is in check
 
     // take the cell of the king of colour c
@@ -183,15 +183,15 @@ bool Chessboard::isInCheck(const Colour c) {
 
     // assert 
     if (!king_cell) {
-        throw InvalidState{};
+        throw invalid_state{};
     }
 
     // check if a piece of opposite colour can capture the king
     for (int i = 0; i < N_PIECES; i++) {
         Cell *cell = (c == Colour::white ? black_pieces[i] : white_pieces[i]);
         if (cell) {
-            Piece *p = getPiece(*cell);
-            if (p->isValidMove(*cell, *king_cell, *this)) {
+            Piece *p = get_piece(*cell);
+            if (p->is_valid_move(*cell, *king_cell, *this)) {
                 return true;
             }
         }
@@ -200,24 +200,24 @@ bool Chessboard::isInCheck(const Colour c) {
     return false;
 }
 
-bool Chessboard::canMove(const Colour colour) {
+bool Chessboard::can_move(const Colour colour) {
     // check if the player with colour c can move
     for (int i = 0; i < N_PIECES; i++) {
         Cell *start_cell = (colour == Colour::white ? white_pieces[i] : black_pieces[i]);
         if (start_cell) {
-            Piece *piece_to_move = getPiece(*start_cell);
+            Piece *piece_to_move = get_piece(*start_cell);
             for (unsigned int r = 0; r < N_ROWS; r++) {
                 for (unsigned int c = 0; c < N_COLS; c++) {
                     Cell *end_cell = new Cell{r,c};
-                    if (piece_to_move->isValidMove(*start_cell, *end_cell, *this)) {
+                    if (piece_to_move->is_valid_move(*start_cell, *end_cell, *this)) {
                         
                         move(start_cell, end_cell, piece_to_move);
 
-                        bool canMove = !isInCheck(colour);
+                        bool can_move = !is_in_check(colour);
 
                         undo_move(start_cell, end_cell, piece_to_move);
 
-                        if (canMove) {
+                        if (can_move) {
                             return true;
                         }
 
@@ -229,36 +229,36 @@ bool Chessboard::canMove(const Colour colour) {
     return false;
 }
 
-void Chessboard::checkPromotion(Cell& end_cell) {
-    Piece *piece_moved = getPiece(end_cell);
-    if (piece_moved->getLetter() == 'P' && end_cell.getRow() == 0) {
-        setPiece(end_cell, new Queen(Colour::black, piece_moved->getId()));
+void Chessboard::check_promotion(Cell& end_cell) {
+    Piece *piece_moved = get_piece(end_cell);
+    if (piece_moved->get_letter() == 'P' && end_cell.get_row() == 0) {
+        set_piece(end_cell, new Queen(Colour::black, piece_moved->get_id()));
     }
-    if (piece_moved->getLetter() == 'p' && end_cell.getRow() == 7) {
-        setPiece(end_cell, new Queen(Colour::white, piece_moved->getId()));
+    if (piece_moved->get_letter() == 'p' && end_cell.get_row() == 7) {
+        set_piece(end_cell, new Queen(Colour::white, piece_moved->get_id()));
     }
 }
 
 void Chessboard::set_possible_en_passant(Cell& start_cell, Cell& end_cell, Piece *piece_moved) {
-    bool is_two_cells_move = (start_cell.getCol() == end_cell.getCol() && (start_cell.getRow() - end_cell.getRow() == 2));
-    if (piece_moved->getLetter() == 'P' && is_two_cells_move) {
-        en_passant_cell = new Cell{end_cell.getRow() + 1, end_cell.getCol()};
+    bool is_two_cells_move = (start_cell.get_col() == end_cell.get_col() && (start_cell.get_row() - end_cell.get_row() == 2));
+    if (piece_moved->get_letter() == 'P' && is_two_cells_move) {
+        en_passant_cell = new Cell{end_cell.get_row() + 1, end_cell.get_col()};
     }
 
-    is_two_cells_move = (start_cell.getCol() == end_cell.getCol() && (start_cell.getRow() - end_cell.getRow() == -2));
-    if (piece_moved->getLetter() == 'p' && is_two_cells_move) {
-        en_passant_cell = new Cell{end_cell.getRow() - 1, end_cell.getCol()};
+    is_two_cells_move = (start_cell.get_col() == end_cell.get_col() && (start_cell.get_row() - end_cell.get_row() == -2));
+    if (piece_moved->get_letter() == 'p' && is_two_cells_move) {
+        en_passant_cell = new Cell{end_cell.get_row() - 1, end_cell.get_col()};
     }
 }
 
 bool Chessboard::is_en_passant(Cell& start_cell, Cell& end_cell, Piece *piece_to_move) {
-    bool is_diagonal_move = (start_cell.getRow() - end_cell.getRow() == 1) && abs(static_cast<int>(start_cell.getCol()) - static_cast<int>(end_cell.getCol())) == 1;
-    if (piece_to_move->getLetter() == 'P' && is_diagonal_move && en_passant_cell && end_cell == *en_passant_cell) {
+    bool is_diagonal_move = (start_cell.get_row() - end_cell.get_row() == 1) && abs(static_cast<int>(start_cell.get_col()) - static_cast<int>(end_cell.get_col())) == 1;
+    if (piece_to_move->get_letter() == 'P' && is_diagonal_move && en_passant_cell && end_cell == *en_passant_cell) {
         return true;
     }
 
-    is_diagonal_move = (start_cell.getRow() - end_cell.getRow()) == -1 && abs(static_cast<int>(start_cell.getCol()) - static_cast<int>(end_cell.getCol())) == 1;
-    if (piece_to_move->getLetter() == 'p' && is_diagonal_move && en_passant_cell && end_cell == *en_passant_cell) {
+    is_diagonal_move = (start_cell.get_row() - end_cell.get_row()) == -1 && abs(static_cast<int>(start_cell.get_col()) - static_cast<int>(end_cell.get_col())) == 1;
+    if (piece_to_move->get_letter() == 'p' && is_diagonal_move && en_passant_cell && end_cell == *en_passant_cell) {
         return true;
     }
 
@@ -266,21 +266,21 @@ bool Chessboard::is_en_passant(Cell& start_cell, Cell& end_cell, Piece *piece_to
 }
 
 void Chessboard::undo_en_passant(Cell *start_cell, Cell *end_cell, Cell& cell_pawn_to_capture, Piece *piece_moved) {
-    setPiece(*start_cell, piece_moved);
-    setPiece(*end_cell, nullptr);
-    setPiece(cell_pawn_to_capture, last_piece_captured);
+    set_piece(*start_cell, piece_moved);
+    set_piece(*end_cell, nullptr);
+    set_piece(cell_pawn_to_capture, last_piece_captured);
 
-    if (piece_moved->getColour() == Colour::white) {
-        white_pieces[piece_moved->getId()] = start_cell;
+    if (piece_moved->get_colour() == Colour::white) {
+        white_pieces[piece_moved->get_id()] = start_cell;
     } else {
-        black_pieces[piece_moved->getId()] = start_cell;
+        black_pieces[piece_moved->get_id()] = start_cell;
     }
 
-    Cell *pointer_cell_pawn_to_capture = new Cell{cell_pawn_to_capture.getRow(), cell_pawn_to_capture.getCol()};
-    if (last_piece_captured && last_piece_captured->getColour() == Colour::white) {
-        white_pieces[last_piece_captured->getId()] = pointer_cell_pawn_to_capture;
+    Cell *pointer_cell_pawn_to_capture = new Cell{cell_pawn_to_capture.get_row(), cell_pawn_to_capture.get_col()};
+    if (last_piece_captured && last_piece_captured->get_colour() == Colour::white) {
+        white_pieces[last_piece_captured->get_id()] = pointer_cell_pawn_to_capture;
     } else if (last_piece_captured){
-        black_pieces[last_piece_captured->getId()] = pointer_cell_pawn_to_capture;
+        black_pieces[last_piece_captured->get_id()] = pointer_cell_pawn_to_capture;
     }
 
     en_passant_cell = end_cell;
@@ -289,28 +289,28 @@ void Chessboard::undo_en_passant(Cell *start_cell, Cell *end_cell, Cell& cell_pa
 bool Chessboard::is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_move) {
     assert(start_cell && end_cell && piece_to_move);
 
-    bool is_king = piece_to_move->getLetter() == 'r' || piece_to_move->getLetter() == 'R';
-    bool same_row = start_cell->getRow() == end_cell->getRow();
+    bool is_king = piece_to_move->get_letter() == 'r' || piece_to_move->get_letter() == 'R';
+    bool same_row = start_cell->get_row() == end_cell->get_row();
     if (!is_king || !same_row) {
         return false;
     }
     
-    int delta_col = start_cell->getCol() - end_cell->getCol();
-    bool king_has_moved = dynamic_cast<King*>(piece_to_move)->hasMoved();
+    int delta_col = start_cell->get_col() - end_cell->get_col();
+    bool king_has_moved = dynamic_cast<King*>(piece_to_move)->has_moved();
     
     // castling short
     if (!king_has_moved && delta_col == -2) {
-        Piece *rook = getPiece(Cell{start_cell->getRow(), start_cell->getCol() + 3});
+        Piece *rook = get_piece(Cell{start_cell->get_row(), start_cell->get_col() + 3});
         // the rook isn't in the right place   
         if (!rook) {
             return false;
         } 
-        bool right_rook = (piece_to_move->getLetter() == 'r' && rook->getLetter() == 't') || 
-                          (piece_to_move->getLetter() == 'R' && rook->getLetter() == 'T');     
+        bool right_rook = (piece_to_move->get_letter() == 'r' && rook->get_letter() == 't') || 
+                          (piece_to_move->get_letter() == 'R' && rook->get_letter() == 'T');     
         if (!right_rook) {
             return false;
         }
-        bool rook_has_moved = dynamic_cast<Rook*>(rook)->hasMoved();
+        bool rook_has_moved = dynamic_cast<Rook*>(rook)->has_moved();
         if (rook_has_moved) {
             return false;
         }
@@ -318,10 +318,10 @@ bool Chessboard::is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_m
         // and if the king is in check in these cells
         bool king_in_check = false;
         for (unsigned int i = 1; i <= 2; i++) {
-            Cell cell = Cell{start_cell->getRow(), start_cell->getCol() + i};
-            if (!getPiece(cell)) {
+            Cell cell = Cell{start_cell->get_row(), start_cell->get_col() + i};
+            if (!get_piece(cell)) {
                 move(start_cell, end_cell, piece_to_move);
-                if (isInCheck(piece_to_move->getColour())) {
+                if (is_in_check(piece_to_move->get_colour())) {
                     king_in_check |= true; 
                 }
                 undo_move(start_cell, end_cell, piece_to_move);
@@ -334,17 +334,17 @@ bool Chessboard::is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_m
 
     // castling long
     if (!king_has_moved && delta_col == 2) {
-        Piece *rook = getPiece(Cell{start_cell->getRow(), start_cell->getCol() - 4});
+        Piece *rook = get_piece(Cell{start_cell->get_row(), start_cell->get_col() - 4});
         // the rook isn't in the right place        
         if (!rook) {
             return false;
         } 
-        bool right_rook = (piece_to_move->getLetter() == 'r' && rook->getLetter() == 't') || 
-                          (piece_to_move->getLetter() == 'R' && rook->getLetter() == 'T');     
+        bool right_rook = (piece_to_move->get_letter() == 'r' && rook->get_letter() == 't') || 
+                          (piece_to_move->get_letter() == 'R' && rook->get_letter() == 'T');     
         if (!right_rook) {
             return false;
         }
-        bool rook_has_moved = dynamic_cast<Rook*>(rook)->hasMoved();
+        bool rook_has_moved = dynamic_cast<Rook*>(rook)->has_moved();
         if (rook_has_moved) {
             return false;
         }
@@ -352,10 +352,10 @@ bool Chessboard::is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_m
         // and if the king is in check in these cells
         bool king_in_check = false;
         for (unsigned int i = 1; i <= 2; i++) {
-            Cell cell = Cell{start_cell->getRow(), start_cell->getCol() - i};
-            if (!getPiece(cell)) {
+            Cell cell = Cell{start_cell->get_row(), start_cell->get_col() - i};
+            if (!get_piece(cell)) {
                 move(start_cell, end_cell, piece_to_move);
-                if (isInCheck(piece_to_move->getColour())) {
+                if (is_in_check(piece_to_move->get_colour())) {
                     king_in_check |= true; 
                 }
                 undo_move(start_cell, end_cell, piece_to_move);
@@ -364,7 +364,7 @@ bool Chessboard::is_castling(Cell *start_cell, Cell *end_cell, Piece *piece_to_m
             }
         }
         // check if there is a piece to the right of the rook (where the king doesn't go) 
-        if (getPiece(Cell{start_cell->getRow(), start_cell->getCol() - 3})) {
+        if (get_piece(Cell{start_cell->get_row(), start_cell->get_col() - 3})) {
             return false;
         }
 
@@ -390,9 +390,9 @@ string Chessboard::to_string() {
     string res = "";
     for (unsigned int r = 0; r < Chessboard::N_ROWS; r++) {
         for (unsigned int c = 0; c < Chessboard::N_COLS; c++) {
-            Piece* p = getPiece(Cell{r, c});
+            Piece* p = get_piece(Cell{r, c});
             if (p)
-                res += p->getLetter();
+                res += p->get_letter();
             else    
                 res += " ";
         }
@@ -412,7 +412,7 @@ ostream& operator<<(ostream& os, const Chessboard& b) {
     for (unsigned int r = Chessboard::N_ROWS; r > 0; r--) {
         os << r << " " << VERTICAL_SIDE;
         for (unsigned int c = 0; c < Chessboard::N_COLS; c++) {
-            Piece* p = b.getPiece(Cell{r - 1, c});
+            Piece* p = b.get_piece(Cell{r - 1, c});
             if (p)
                 os << *p;
             else    

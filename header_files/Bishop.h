@@ -9,9 +9,9 @@ class Bishop : public Piece {
         Bishop(Colour c, unsigned int id);
         ~Bishop() {};
 
-        bool isValidMove(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
+        bool is_valid_move(Cell& start_cell, Cell& end_cell, Chessboard& board) const override;
         ostream& print_piece(ostream& of) const override;
-        char getLetter() const override;
+        char get_letter() const override;
 };
 
 #endif
