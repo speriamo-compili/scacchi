@@ -16,7 +16,6 @@ class Replay {
         void end_game(); 
 
     public:
-        const char HORIZONTAL_SEP = char(196);
 
         Replay(const string &in);
         Replay(const string &in, const string &out);

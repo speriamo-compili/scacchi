@@ -15,7 +15,7 @@ void Replay::print_board() {
 }
 
 void Replay::end_game() {
-    cout << string(5, HORIZONTAL_SEP) << " Game ended " << string(5,HORIZONTAL_SEP) << "\n\n"; 
+    cout << "───── Game ended ─────\n\n"; 
     
     if (board.get_pieces_on_board(Colour::white) == 1 && board.get_pieces_on_board(Colour::black) == 1) {
         cout << "It's impossible to force the checkmate with only two kings left.\nThe game ended in a draw.\n";
@@ -56,7 +56,7 @@ void Replay::print() {
     colour_to_move = Colour::white;
     while (!input_file.eof()) {
         if (!print_on_file) {
-            // std::this_thread::sleep_for(std::chrono::seconds(1));
+            std::this_thread::sleep_for(std::chrono::seconds(1));
         }
         
         string start, end;
@@ -69,7 +69,7 @@ void Replay::print() {
 
         Cell start_cell(start), end_cell(end);
         board.move(start_cell, end_cell);
-        cout << string(5, HORIZONTAL_SEP) << " Move " << move++ << " " << string(5,HORIZONTAL_SEP) << "\n\n"; 
+        cout << "───── Move " << move++ << " ─────\n\n"; 
         print_board();
         colour_to_move = colour_to_move == Colour::white ? Colour::black : Colour::white;
     }

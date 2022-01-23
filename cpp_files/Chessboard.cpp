@@ -401,14 +401,14 @@ string Chessboard::to_string() {
 }
 
 ostream& operator<<(ostream& os, const Chessboard& b) {
-    const char HORIZONTAL_SIDE = char(196);
-    const char VERTICAL_SIDE = char(179);
-    const char UP_LEFT_ANGLE = char(218);
-    const char UP_RIGHT_ANGLE = char(191);
-    const char DOWN_LEFT_ANGLE = char(192);
-    const char DOWN_RIGHT_ANGLE = char(217);
+    const string HORIZONTAL_SIDE = "─";
+    const string VERTICAL_SIDE = "│";
+    const string UP_LEFT_ANGLE = "┌";
+    const string UP_RIGHT_ANGLE = "┐";
+    const string DOWN_LEFT_ANGLE = "└";
+    const string DOWN_RIGHT_ANGLE = "┘";
 
-    os << "  " << UP_LEFT_ANGLE << string(8, HORIZONTAL_SIDE) << UP_RIGHT_ANGLE << endl;
+    os << "  " << UP_LEFT_ANGLE << "────────" << UP_RIGHT_ANGLE << endl;
     for (unsigned int r = Chessboard::N_ROWS; r > 0; r--) {
         os << r << " " << VERTICAL_SIDE;
         for (unsigned int c = 0; c < Chessboard::N_COLS; c++) {
@@ -420,7 +420,7 @@ ostream& operator<<(ostream& os, const Chessboard& b) {
         }
         os << VERTICAL_SIDE << endl;
     }
-    os << "  " << DOWN_LEFT_ANGLE << string(8, HORIZONTAL_SIDE) << DOWN_RIGHT_ANGLE << endl << "   ";
+    os << "  " << DOWN_LEFT_ANGLE << "────────" << DOWN_RIGHT_ANGLE << endl << "   ";
     for (unsigned int i = 0; i < Chessboard::N_COLS; i++) {
         os << char('A' + i);
     }
