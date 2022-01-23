@@ -1,4 +1,4 @@
-#include "..\header_files\Bishop.h"
+#include "../header_files/Bishop.h"
 
 Bishop::Bishop(Colour c, unsigned int id) : Piece(c, id) {};
 

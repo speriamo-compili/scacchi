@@ -1,4 +1,4 @@
-#include "..\header_files\Cell.h"
+#include "../header_files/Cell.h"
 
 Cell::Cell() {
     row = 0;

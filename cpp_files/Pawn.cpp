@@ -1,4 +1,4 @@
-#include "..\header_files\Pawn.h"
+#include "../header_files/Pawn.h"
 
 Pawn::Pawn(Colour c, unsigned int id) : Piece(c, id), _has_moved{false} {};
 

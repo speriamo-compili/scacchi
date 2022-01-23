@@ -1,11 +1,11 @@
-#include "..\header_files\Chessboard.h"
-#include "..\header_files\Piece.h"
-#include "..\header_files\Bishop.h"
-#include "..\header_files\King.h"
-#include "..\header_files\Knight.h"
-#include "..\header_files\Pawn.h"
-#include "..\header_files\Queen.h"
-#include "..\header_files\Rook.h"
+#include "../header_files/Chessboard.h"
+#include "../header_files/Piece.h"
+#include "../header_files/Bishop.h"
+#include "../header_files/King.h"
+#include "../header_files/Knight.h"
+#include "../header_files/Pawn.h"
+#include "../header_files/Queen.h"
+#include "../header_files/Rook.h"
 #include <assert.h>
 
 Chessboard::Chessboard() {

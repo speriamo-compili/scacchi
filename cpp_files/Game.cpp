@@ -1,6 +1,6 @@
-#include "..\header_files\Game.h"
-#include "..\header_files\Computer.h"
-#include "..\header_files\Human.h"
+#include "../header_files/Game.h"
+#include "../header_files/Computer.h"
+#include "../header_files/Human.h"
 #include <time.h>
 
 // default game is human vs computer

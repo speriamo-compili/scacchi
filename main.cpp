@@ -35,13 +35,8 @@ int main() {
     // std::mt19937 rng(dev());
     // std::uniform_int_distribution<> dist(0, 15);
 
-    map<string, int> m;
-    string s = "ciao";
-    m[s]++;
-    m[s]++;
-    m[s]++;
-
-    cout << m[s] << endl;
+    putchar(191);
+    
     // cout << board << "\n";
     // currentTurn = Colour::white;
 

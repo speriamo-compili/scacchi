@@ -1,4 +1,4 @@
-#include "..\header_files\Player.h"
+#include "../header_files/Player.h"
 
 Player::Player(const Colour c) : colour(c) {};
 

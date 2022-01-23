@@ -1,4 +1,4 @@
-#include "..\header_files\Queen.h"
+#include "../header_files/Queen.h"
 
 Queen::Queen(Colour c, unsigned int id) : Piece(c, id) {};
 

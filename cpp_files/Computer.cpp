@@ -1,4 +1,4 @@
-#include "..\header_files\Computer.h"
+#include "../header_files/Computer.h"
 #include <random>
 #include <chrono>
 #include <cassert>

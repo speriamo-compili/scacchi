@@ -14,7 +14,7 @@ class Cell {
         unsigned int get_index_row(char& r) const;
 
     public:
-        class invalid_cell{}; // REMINDER: decide if it's the right place for exceptions
+        class invalid_cell{};
         static const unsigned int LENGTH_STRING_OF_A_CELL = 2;
         static const unsigned int MAX_ROWS_COLS = 8;
 

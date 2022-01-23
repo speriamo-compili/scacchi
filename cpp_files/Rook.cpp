@@ -1,4 +1,4 @@
-#include "..\header_files\Rook.h"
+#include "../header_files/Rook.h"
 
 Rook::Rook(Colour c, unsigned int id) : Piece(c, id), _has_moved{false} {};
 

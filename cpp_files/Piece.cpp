@@ -1,4 +1,4 @@
-#include "..\header_files\Piece.h"
+#include "../header_files/Piece.h"
 
 Piece::Piece(Colour c, unsigned int id) : piece_colour(c), _id{id} {};
 

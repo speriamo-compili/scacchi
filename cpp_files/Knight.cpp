@@ -1,4 +1,4 @@
-#include "..\header_files\Knight.h"
+#include "../header_files/Knight.h"
 
 Knight::Knight(Colour c, unsigned int id) : Piece(c, id) {};
 
